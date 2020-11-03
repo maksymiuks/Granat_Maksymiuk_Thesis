@@ -1,0 +1,7 @@
+Rshiny Formularze:
+- https://github.com/daattali/shinyforms
+- https://deanattali.com/2015/06/14/mimicking-google-form-shiny/
+- http://rstudio-pubs-static.s3.amazonaws.com/302891_3a8f5170171545248977bbb7b015f546.html#what_is_this_tutorial_about
+- https://medium.com/@joyplumeri/using-r-shiny-to-create-web-surveys-display-instant-feedback-and-store-data-on-google-drive-68f46eea0f8b
+- https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0232424
+- https://github.com/aaronrkaufman/shinySurveys
