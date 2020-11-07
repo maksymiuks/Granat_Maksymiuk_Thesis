@@ -90,6 +90,10 @@ ui <- fluidPage(
           div(style = "margin: 15px 0px 0px 0px;",
               actionButton("next_page", 
                            "Przejdź do pytań",
+                           width = 150)),
+          div(style = "margin: 15px 0px 0px 0px;",
+              actionButton("confirm", 
+                           "Confirm",
                            width = 150))
         )
       )
@@ -129,6 +133,8 @@ server <- function(input, output, session) {
     rownames(ret) <- NULL
     ret
   })
+
+  
   
   observeEvent(input$data_browse, {
     updateTabsetPanel(session, "tabset_panel", selected = "Data")
@@ -142,14 +148,17 @@ server <- function(input, output, session) {
     updateTabsetPanel(session, "tabset_panel",selected = "1st Question")
   })
   
+
+  
   output$Data <- DT::renderDataTable({
     DT::datatable(data_sample())
   })
   
-  output$st_question <- renderUI({
+  
+  form_data_st <- reactive({
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
-    id <- "1st_Question"
+    id <- "st_Question"
     questions <- lapply(1:n, function(x){
       list(id = as.character(x), 
            type = "text" , 
@@ -157,11 +166,53 @@ server <- function(input, output, session) {
            hint = HTML(create_html_table(data[x,])))
     })
     storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
-    question_data <- list(id = id, questions = questions, storage = storage)
-    formUI(question_data)
-
+    list(id = id, questions = questions, storage = storage)
+  })
+ 
+  form_data_nd <- reactive({
+    data <- data_sample() %>% mutate_if(is.factor, as.character)
+    n <- nrow(data)
+    id <- "nd_Question"
+    questions <- lapply(1:n, function(x){
+      list(id = as.character(x), 
+           type = "text" , 
+           title = paste(x, "Name the most important feature DRUGIE", sep = " "), 
+           hint = HTML(create_html_table(data[x,])))
+    })
+    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+    list(id = id, questions = questions, storage = storage)
   })
   
+  
+  
+  output$st_question <- renderUI({
+    formUI(form_data_st())
+  })
+
+  output$nd_question <- renderUI({
+    formUI(form_data_nd())
+  })
+  
+  
+  callModule(shinyforms:::formServerHelper, "st_Question", form_data_st)
+  callModule(shinyforms:::formServerHelper, "nd_Question", form_data_nd)
+  
+  
+  # formServer({
+  #   data <- data_sample %>% mutate_if(is.factor, as.character)
+  #   n <- nrow(data)
+  #   id <- "st_Question"
+  #   questions <- lapply(1:n, function(x){
+  #     list(id = as.character(x), 
+  #          type = "text" , 
+  #          title = paste(x, "Name the most important feature", sep = " "), 
+  #          hint = HTML(create_html_table(data[x,])))
+  #   })
+  #   storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+  #   question_data <- list(id = id, questions = questions, storage = storage)
+  #   question_data
+  #   
+  # })
 }
 
 
