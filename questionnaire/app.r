@@ -161,9 +161,11 @@ server <- function(input, output, session) {
     id <- "st_Question"
     questions <- lapply(1:n, function(x){
       list(id = as.character(x), 
-           type = "text" , 
+           type = "radio" , 
            title = paste(x, "Name the most important feature", sep = " "), 
-           hint = HTML(create_html_table(data[x,])))
+           hint = HTML(create_html_table(data[x,])),
+           choices = as.list(colnames(data)),
+           inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
     list(id = id, questions = questions, storage = storage)
@@ -175,9 +177,27 @@ server <- function(input, output, session) {
     id <- "nd_Question"
     questions <- lapply(1:n, function(x){
       list(id = as.character(x), 
-           type = "text" , 
-           title = paste(x, "Name the most important feature DRUGIE", sep = " "), 
-           hint = HTML(create_html_table(data[x,])))
+           type = "checkbox_multi" , 
+           title = paste(x, "Name 3 most important features", sep = " "), 
+           hint = HTML(create_html_table(data[x,])),
+           choices = as.list(colnames(data)),
+           inline = TRUE)
+    })
+    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+    list(id = id, questions = questions, storage = storage)
+  })
+  
+  form_data_rd <- reactive({
+    data <- data_sample() %>% mutate_if(is.factor, as.character)
+    n <- nrow(data)
+    id <- "rd_Question"
+    questions <- lapply(1:n, function(x){
+      list(id = as.character(x), 
+           type = "radio" , 
+           title = paste(x, "Name 3 most important features", sep = " "), 
+           hint = HTML(create_html_table(data[x,])),
+           choices = as.list(colnames(data)),
+           inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
     list(id = id, questions = questions, storage = storage)
