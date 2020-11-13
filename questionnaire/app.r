@@ -4,6 +4,7 @@ library(dplyr)
 library(shinythemes)
 library(shinyjs)
 library(htmlTable)
+library(shinyjqui)
 # Define the first form: basic information
 # basicInfoForm <- list(
 #   id = "basicinfo",
@@ -160,12 +161,11 @@ server <- function(input, output, session) {
     n <- nrow(data)
     id <- "st_Question"
     questions <- lapply(1:n, function(x){
-      list(id = as.character(x), 
-           type = "radio" , 
-           title = paste(x, "Name the most important feature", sep = " "), 
+      list(id = paste("st", as.character(x), sep = "_"), 
+           type = "order" , 
+           title = paste(x, "Order features according to its importance for a given observation", sep = " "), 
            hint = HTML(create_html_table(data[x,])),
-           choices = as.list(colnames(data)),
-           inline = TRUE)
+           choices = colnames(data))
     })
     storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
     list(id = id, questions = questions, storage = storage)
@@ -176,7 +176,7 @@ server <- function(input, output, session) {
     n <- nrow(data)
     id <- "nd_Question"
     questions <- lapply(1:n, function(x){
-      list(id = as.character(x), 
+      list(id = paste("nd", as.character(x), sep = "nd"), 
            type = "checkbox_multi" , 
            title = paste(x, "Name 3 most important features", sep = " "), 
            hint = HTML(create_html_table(data[x,])),
@@ -192,11 +192,11 @@ server <- function(input, output, session) {
     n <- nrow(data)
     id <- "rd_Question"
     questions <- lapply(1:n, function(x){
-      list(id = as.character(x), 
+      list(id = paste("rd", as.character(x), sep = "rd"), 
            type = "radio" , 
-           title = paste(x, "Name 3 most important features", sep = " "), 
+           title = paste(x, "Variable", colnames(data)[sample(1:ncol(data), 1)], "contributes to price: ", sep = " "), 
            hint = HTML(create_html_table(data[x,])),
-           choices = as.list(colnames(data)),
+           choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
@@ -213,26 +213,16 @@ server <- function(input, output, session) {
     formUI(form_data_nd())
   })
   
+  output$rd_question <- renderUI({
+    formUI(form_data_rd())
+  })
+  
   
   callModule(shinyforms:::formServerHelper, "st_Question", form_data_st)
   callModule(shinyforms:::formServerHelper, "nd_Question", form_data_nd)
+  callModule(shinyforms:::formServerHelper, "rd_Question", form_data_rd)
   
   
-  # formServer({
-  #   data <- data_sample %>% mutate_if(is.factor, as.character)
-  #   n <- nrow(data)
-  #   id <- "st_Question"
-  #   questions <- lapply(1:n, function(x){
-  #     list(id = as.character(x), 
-  #          type = "text" , 
-  #          title = paste(x, "Name the most important feature", sep = " "), 
-  #          hint = HTML(create_html_table(data[x,])))
-  #   })
-  #   storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
-  #   question_data <- list(id = id, questions = questions, storage = storage)
-  #   question_data
-  #   
-  # })
 }
 
 
