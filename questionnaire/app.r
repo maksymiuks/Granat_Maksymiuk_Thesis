@@ -196,21 +196,7 @@ server <- function(input, output, session) {
     dynamicUi()
   })
   
-  form_data_st <- reactive({
-    data <- data_sample() %>% mutate_if(is.factor, as.character)
-    n <- nrow(data)
-    id <- "st_Question"
-    
-    questions <- lapply(1:n, function(x){
-      list(id = paste("st", as.character(x), sep = "_"), 
-           type = "order" , 
-           title = paste(x, "Order features according to its importance for a given observation", sep = " "), 
-           hint = HTML(create_html_table(data[x,])),
-           choices = colnames(data))
-    })
-    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
-    list(id = id, questions = questions, storage = storage)
-  })
+  
   
   dynamicUi <- reactive({
     if (input$Click.Counter==0)
@@ -248,6 +234,18 @@ server <- function(input, output, session) {
     }
     
     if (input$Click.Counter==3){
+      #shinyjs::disable("Click.Counter")
+      return(
+        list(
+          h5("In this part please mark the impact of each single feature on the price"),
+          renderUI({
+            formUI(form_data_rd())
+          })
+        )
+      )
+    }
+    
+    if (input$Click.Counter==4){
       shinyjs::disable("Click.Counter")
       return(
         list(
@@ -259,7 +257,21 @@ server <- function(input, output, session) {
     
   })
   
-  
+  form_data_st <- reactive({
+    data <- data_sample() %>% mutate_if(is.factor, as.character)
+    n <- nrow(data)
+    id <- "st_Question"
+    
+    questions <- lapply(1:n, function(x){
+      list(id = paste("st", as.character(x), sep = "_"), 
+           type = "order" , 
+           title = paste(x, "Order features according to its importance for a given observation", sep = " "), 
+           hint = HTML(create_html_table(data[x,])),
+           choices = colnames(data))
+    })
+    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+    list(id = id, questions = questions, storage = storage)
+  })
  
   form_data_nd <- reactive({
     data <- data_sample() %>% mutate_if(is.factor, as.character)
