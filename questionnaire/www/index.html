@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Shiny HTML Template App</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+    <script src="js/pace.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="shared/shiny.css"/>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- shiny stuff
+        ================================================== -->
+    {{ headContent() }}
+    
+    <style>.selectize-dropdown {z-index: 10000}</style>
+</head>
+
+<body id="top">
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <div class="header-nav__content">
+                <h3>Navigation</h3>
+                
+                <ul class="header-nav__list">
+                    <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
+                    <li><a class="smoothscroll"  href="#about" title="about">Introduction</a></li>
+                    <li><a class="smoothscroll"  href="#works" title="works">Questions</a></li>
+                </ul>
+
+    
+                <ul class="header-nav__social">
+                    <li>
+                        <a href="https://facebook.com/vivek.katial"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/vivekkatial"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/vivekkatial/"><i class="fa fa-instagram"></i></a>
+                    </li>
+                </ul>
+
+            </div> <!-- end header-nav__content -->
+
+        </nav>  <!-- end header-nav -->
+
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-text">Menu</span>
+            <span class="header-menu-icon"></span>
+        </a>
+
+    </header> <!-- end s-header -->
+
+
+    <!-- home
+    ================================================== -->
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/mini_wydzial.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+
+        <div class="overlay"></div>
+        <div class="shadow-overlay"></div>
+
+        <div class="home-content">
+
+            <div class="row home-content__main">
+
+                <h3>Annotations App</h3>
+                
+                
+                <h1>
+                    This simple app<br>
+                    will let you explore information<br>
+                    about telephones<br>
+                    and collect explanations for their prices
+                </h1>
+                
+
+                <div class="home-content__buttons">
+                    <a href="#about" class="smoothscroll btn btn--stroke">
+                        Take part
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="home-content__scroll">
+                <a href="#about" class="scroll-link smoothscroll">
+                    <span>Scroll Down</span>
+                </a>
+            </div>
+
+            <div class="home-content__line"></div>
+
+        </div> <!-- end home-content -->
+
+
+    </section> <!-- end s-home -->
+
+
+    <!-- about
+    ================================================== -->
+    <section id='about' class="s-about">
+
+        <div class="row section-header has-bottom-sep" data-aos="fade-up">
+            <div class="col-full">
+               <h2>
+                  As we respect your time please choose the number of questions and sample size first
+               </h2>
+               <h2 class="subhead">For each 5 additional questions You will need 2-5 minutes additional time. For default values it will take 4-10 minutes.</h2>
+            </div>
+        </div> <!-- end section-header -->
+
+        
+        <!--- NUMBERS BY INTEGRATING SHINY OUTPUT -->
+        <div class="row about-stats stats block-1-2 block-m-1-2 block-mob-full" data-aos="fade-up">
+                
+            <div class="col-block stats__col">
+                {{ questions_number }}
+            </div>
+            <div class="col-block stats__col">
+                {{ sample_size }}
+            </div>
+
+        </div> 
+         <!--- END NUMBERS BY INTEGRATING SHINY OUTPUT -->
+
+
+        <div class="about__line"></div>
+
+    </section> 
+    <!-- end s-about -->
+
+
+    <!-- map ================================================== -->
+    <section id='services' class="s-clients">
+      
+        <div class="row section-header has-bottom-sep aos-init aos-animate" data-aos="fade-up">
+            <div class="col-full">
+                <h2 class="subhead">Browse sample of phones randomly chosen for You</h2>
+              
+                
+            </div>
+        </div>
+        
+        <!-- end about-desc -->
+        <div class="col-eleven align-center">
+          {{ data_browser }}
+        </div>
+        
+      <div class="intro-wrap"> 
+      
+      </div>
+      
+
+    </section> 
+    <!-- end s-map -->
+    
+    <section id="works" class="s-services">
+      <div class="row section-header aos-init aos-animate" data-aos="fade-up">
+            <div class="col-full">
+                <h3 class="subhead">Questions</h3>
+                <h1 class="display-2">Think of all the prices You have just seen and fill out the forms</h1>
+                {{ questions }}
+                <a class="smoothscroll"  href="#works" title="works">{{ ccounter }}</a>
+            </div>
+        </div>
+    </section>
+
+  
+
+
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale-pulse-out">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
