@@ -5,6 +5,12 @@ library(shinythemes)
 library(shinyjs)
 library(htmlTable)
 library(shinyjqui)
+library(googlesheets4)
+
+gs4_auth(
+  cache = ".secrets",
+  email = "inzynierkaszymonbartek@gmail.com"
+)
 # Define the first form: basic information
 # basicInfoForm <- list(
 #   id = "basicinfo",
@@ -166,6 +172,18 @@ ui <- shiny::htmlTemplate(
                                   min = 1,
                                   max = 3,
                                   width = 125),
+  domain_knowledge = radioButtons("domain",
+                                  "How would you describe your knowledge about phones market?",
+                                  choices = c("Expert", "Experianced", "Moderate", "Newbee", "Hardly any"),
+                                  inline = TRUE),
+  last_phone = radioButtons("last_phone",
+                            "When have you bought your current phone?",
+                            choices = c("More than 2 years ago", "Between 2 years and 1 year ago", "Between 1 years and 6 months ago", "Less than 6 months ago")),
+  xai_knowledge = radioButtons("xai",
+                                  "How would you describe your knowledge about ML models explanations?",
+                                  choices = c("Expert", "Experianced", "Moderate", "Newbee", "Hardly any"),
+                               inline = TRUE),
+  
   
   data_browser = DT::dataTableOutput("Data"),
   
@@ -182,10 +200,12 @@ server <- function(input, output) {
   
   data <- read.csv("phones.csv")
 
-
+  m <- reactive({
+    sample(1:nrow(data), input$sample_size)
+  })
+  
   data_sample <- reactive({
-    m <- sample(1:nrow(data), input$sample_size)
-    ret <- data[m,]
+    ret <- data[m(),]
     rownames(ret) <- NULL
     ret
   })
@@ -212,24 +232,33 @@ server <- function(input, output) {
 
     # Once the next button has been clicked once we see each question
     # of the survey.
+    
+    observeEvent(input$Click.Counter, {
+      shinyjs::disable("sample_size")
+      shinyjs::disable("questions")
+      shinyjs::disable("domain")
+      shinyjs::disable("last_phone")
+      shinyjs::disable("xai")
+    })
+    
     if (input$Click.Counter==1){
       # shinyjs::disable("Click.Counter")
       return(
         list(
-          h5("Type 1/3: Looking at the data above please name 3 features affecting price of a telepohone the most"),
+          h5(paste("Type 1/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_nd())
           })
-        )
+       )
       )
 
     }
 
-    if (input$Click.Counter==2){
+    if (input$Click.Counter==2 & input$questions > 1){
       #shinyjs::disable("Click.Counter")
       return(
         list(
-          h5("Type 2/3: For selected number of telephones please drag and drop the features so they are ordered from most to least important when you look at the telephone price"),
+          h5(paste("Type 1/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_st())
           })
@@ -237,11 +266,11 @@ server <- function(input, output) {
       )
     }
 
-    if (input$Click.Counter==3){
+    if (input$Click.Counter==3 & input$questions > 2){
       #shinyjs::disable("Click.Counter")
       return(
         list(
-          h5("Type 3/3: For one random telephone mark the type of impact on price of each single feature"),
+          h5(paste("Type 1/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_rd())
           })
@@ -249,7 +278,7 @@ server <- function(input, output) {
       )
     }
 
-    if (input$Click.Counter==4){
+    if (input$Click.Counter==4 | input$Click.Counter==3 & input$questions == 2 | input$Click.Counter==2 & input$questions == 1){
       shinyjs::disable("Click.Counter")
       return(
         list(
@@ -273,7 +302,9 @@ server <- function(input, output) {
            hint = HTML(create_html_table(data[x,])),
            choices = colnames(data))
     })
-    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+    storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
+                    domain_knowledge = input$domain, xai_knowledge = input$xai,
+                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"))
     list(id = id, questions = questions, storage = storage)
   })
 
@@ -289,7 +320,9 @@ server <- function(input, output) {
            choices = as.list(colnames(data)),
            inline = TRUE)
     })
-    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+    storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
+                    domain_knowledge = input$domain, xai_knowledge = input$xai,
+                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"))
     list(id = id, questions = questions, storage = storage)
   })
 
@@ -305,7 +338,9 @@ server <- function(input, output) {
            choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
            inline = TRUE)
     })
-    storage <- list(type = STORAGE_TYPES$FLATFILE, path = "responses")
+    storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
+                    domain_knowledge = input$domain, xai_knowledge = input$xai,
+                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"))
     list(id = id, questions = questions, storage = storage)
   })
 
