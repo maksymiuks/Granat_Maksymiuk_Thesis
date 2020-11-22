@@ -50,7 +50,7 @@ ui <- shiny::htmlTemplate(
   
   sample_size = numericInput("sample_size", 
                             "Sample size",
-                            value = 10,
+                            value = 5,
                             min = 5,
                             max = 200,
                             width = 125),
@@ -214,17 +214,23 @@ server <- function(input, output) {
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
     id <- "rd_Question"
-    questions <- lapply(1:n, function(x){
-      list(id = paste("rd", as.character(x), sep = "rd"),
-           type = "radio" ,
-           title = paste(x, "Variable", colnames(data)[sample(1:ncol(data), 1)], "contributes to price: ", sep = " "),
-           hint = HTML(create_html_table(data[1,])),
-           choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
-           inline = TRUE)
-    })
+    sample_short <- sample(1:n, floor(n*0.5))
+    questions <- list()
+    for (i in sample_short) {
+      tmp <- lapply(2:(ncol(data)-1), function(x){
+        list(id = paste("rd", as.character(x-1), i, sep = "_"),
+             type = "radio" ,
+             title = paste(x, "Variable", colnames(data)[x], "contributes to price: ", sep = " "),
+             hint = HTML(create_html_table(data[i,])),
+             choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
+             inline = TRUE)
+      })  
+      questions <- c(questions, tmp)
+    }
+    
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
-                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"))
+                    last_phone = input$last_phone, sample = paste0(m()[sample_short], collapse = "-"))
     list(id = id, questions = questions, storage = storage)
   })
 
