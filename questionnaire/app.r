@@ -64,14 +64,14 @@ ui <- shiny::htmlTemplate(
   domain_knowledge = radioButtons("domain",
                                   "Describe your knowledge about phones market",
                                   choices = c("Expert", "Experianced", "Moderate", "Newbie", "Hardly any"),
-                                  inline = TRUE),
+                                  inline = FALSE),
   last_phone = radioButtons("last_phone",
                             "When have you bought your current phone?",
                             choices = c("More than 2 years ago", "Between 2 years and 1 year ago", "Between 1 years and 6 months ago", "Less than 6 months ago")),
   xai_knowledge = radioButtons("xai",
                                   "Describe your knowledge about Machine Learning",
                                   choices = c("Expert", "Experianced", "Moderate", "Newbie", "Hardly any"),
-                               inline = TRUE),
+                               inline = FALSE),
   
   
   data_browser = DT::dataTableOutput("Data"),
@@ -143,7 +143,7 @@ server <- function(input, output) {
     if (input$Click.Counter==2 & input$questions > 1){
       return(
         list(
-          h5(paste("Type 1/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 2/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_st())
           })
@@ -154,7 +154,7 @@ server <- function(input, output) {
     if (input$Click.Counter==3 & input$questions > 2){
       return(
         list(
-          h5(paste("Type 1/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 3/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_rd())
           })

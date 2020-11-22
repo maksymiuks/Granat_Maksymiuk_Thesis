@@ -3611,6 +3611,12 @@ footer .row {
     width: 100% !important;
 }
 
+.shiny-options-group{
+    display: inline-block !important;
+}
 
+.radio-inline{
+    display: inline-block !important;
+}
 
 /*# sourceMappingURL=main.css.map */
