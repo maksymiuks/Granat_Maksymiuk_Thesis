@@ -76,7 +76,7 @@
 
     <!-- home
     ================================================== -->
-    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/mini_wydzial.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/phone-photo.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
         <div class="overlay"></div>
         <div class="shadow-overlay"></div>
@@ -88,12 +88,9 @@
                 <h3>Annotations App</h3>
                 
                 
-                <h1>
-                    This simple app<br>
-                    will let you explore information<br>
-                    about telephones<br>
-                    and collect explanations for their prices
-                </h1>
+                <h2 id='home_text'>
+                    This application is a part of bachelor's degree in Data Science in the field of explainable machine learning. The app presents different telephone features together with their prices and collects human reasoning for those prices. It will allow to compare model explanations based on algorithms with the real ones. 
+                </h2>
                 
 
                 <div class="home-content__buttons">
@@ -126,12 +123,21 @@
         <div class="row section-header has-bottom-sep aos-init aos-animate" data-aos="fade-up">
             <div class="col-full">
                 <h2 class="subhead">First let us know You slightly better</h2>
-              
                 
             </div>
         </div>
         
-        <div class="row about-stats stats block-1-3 block-m-1-3 block-mob-full" data-aos="fade-up">
+        <div class="aos-init aos-animate" data-aos="fade-up">
+          <div class="center-in align-center">
+            {{ email }}
+          </div>
+        </div>
+
+        <div class="row section-header has-bottom-sep aos-init aos-animate about-stats" data-aos="fade-up">
+            
+        </div>
+        
+        <div class="row stats block-1-3 block-m-1-3 block-mob-full" data-aos="fade-up">
 
             <div class="col-block stats__col">
                 {{ domain_knowledge }}
@@ -159,24 +165,19 @@
         <div class="row section-header has-bottom-sep" data-aos="fade-up">
             <div class="col-full">
                <h2>
-                  As we respect your time please choose the number of questions and sample size first
+                  As we respect your time please choose the approximate number of minutes you can spend on filling out the form.
                </h2>
-               <h2 class="subhead">For each 5 additional questions You will need 2-5 minutes additional time. For default values it will take 4-10 minutes.</h2>
+               <h2 class="subhead">We recommend to sacrifice at least 10 minutes as it will allow you to go through all types of questions.</h2>
             </div>
         </div> <!-- end section-header -->
 
         
         <!--- NUMBERS BY INTEGRATING SHINY OUTPUT -->
-        <div class="row about-stats stats block-1-2 block-m-1-2 block-mob-full" data-aos="fade-up">
-                
-            <div class="col-block stats__col">
-                {{ questions_number }}
-            </div>
-            <div class="col-block stats__col">
-                {{ sample_size }}
-            </div>
-
-        </div> 
+        <div class="aos-init aos-animate" data-aos="fade-up">
+          <div id='mins' class="center-in align-center">
+            {{ sample_size }}
+          </div>
+        </div>
          <!--- END NUMBERS BY INTEGRATING SHINY OUTPUT -->
 
 
@@ -192,7 +193,7 @@
         <div class="row section-header has-bottom-sep aos-init aos-animate" data-aos="fade-up">
             <div class="col-full">
                 <h2 class="subhead">Browse sample of phones randomly chosen for You</h2>
-              
+                <h3> Look at the data for some time and try to figure out the relations between the telephones prices and their features. Then go to the questions section below and fill out the answers.</h3>
                 
             </div>
         </div>

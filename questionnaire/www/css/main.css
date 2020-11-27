@@ -3619,4 +3619,31 @@ footer .row {
     display: inline-block !important;
 }
 
+.center-in{
+    margin: 0 auto !important;
+    width: 500px;
+}
+
+.checkbox-inline{
+    text-align: left;
+}
+
+.question-hint{
+    font-size: 1.5rem;
+    color: #6d6d6d;
+}
+
+#home_text{
+    color: #FFFFFF;
+}
+
+#email{
+    width: 500px;
+    font-size: 2.5rem;
+}
+
+#mins{
+    width: 100px;
+}
+
 /*# sourceMappingURL=main.css.map */
