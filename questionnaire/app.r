@@ -42,14 +42,14 @@ ui <- shiny::htmlTemplate(
   # Index Page
   "www/index.html",
   
-  # Number of trips
-  number_of_trips = textOutput(
-    "num_trips",
-    inline = T
+  email = textInput(
+    "email",
+    "Email address",
+    width = 500
   ),
   
   sample_size = numericInput("sample_size", 
-                            "Sample size",
+                            "Number of minutes (approx.)",
                             value = 5,
                             min = 5,
                             max = 200,
@@ -63,14 +63,14 @@ ui <- shiny::htmlTemplate(
                                   width = 125),
   domain_knowledge = radioButtons("domain",
                                   "Describe your knowledge about phones market",
-                                  choices = c("Expert", "Experianced", "Moderate", "Newbie", "Hardly any"),
+                                  choices = c("Professional", "Advanced", "Intermediate", "Novice", "Fundamental"),
                                   inline = FALSE),
   last_phone = radioButtons("last_phone",
                             "When have you bought your current phone?",
                             choices = c("More than 2 years ago", "Between 2 years and 1 year ago", "Between 1 years and 6 months ago", "Less than 6 months ago")),
   xai_knowledge = radioButtons("xai",
                                   "Describe your knowledge about Machine Learning",
-                                  choices = c("Expert", "Experianced", "Moderate", "Newbie", "Hardly any"),
+                                  choices = c("Professional", "Advanced", "Intermediate", "Novice", "Fundamental"),
                                inline = FALSE),
   
   
@@ -85,7 +85,8 @@ ui <- shiny::htmlTemplate(
 
 server <- function(input, output) {
   
-  data <- read.csv("phones.csv")
+  data <- read.csv("phones.csv") %>% 
+    select(name, brand, front_camera_mpix, back_camera_mpix, battery_mAh, flash_gb, diag, price)
 
   m <- reactive({
     sample(1:nrow(data), input$sample_size)
@@ -175,7 +176,8 @@ server <- function(input, output) {
   })
 
   form_data_st <- reactive({
-    data <- data_sample() %>% mutate_if(is.factor, as.character)
+    data <- data_sample() %>% 
+      mutate_if(is.factor, as.character) 
     n <- nrow(data)
     id <- "st_Question"
 
@@ -184,7 +186,8 @@ server <- function(input, output) {
            type = "order" ,
            title = paste0("Observation: ", as.character(x)),
            hint = HTML(create_html_table(data[x,])),
-           choices = colnames(data))
+           choices = sample(colnames(data)[2:7]),
+           inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
@@ -201,7 +204,7 @@ server <- function(input, output) {
            type = "checkbox_multi" ,
            title = "",
            hint = "Mark the features",
-           choices = as.list(colnames(data)),
+           choices = as.list(colnames(data)[2:7]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
@@ -217,15 +220,24 @@ server <- function(input, output) {
     sample_short <- sample(1:n, floor(n*0.5))
     questions <- list()
     for (i in sample_short) {
+      obs_num<-1
+      questions <- c(questions,
+                    list(list(id = paste("new_obs", obs_num, sep = "_"),
+                         type = "radio" ,
+                         title = "",
+                         hint = HTML(create_html_table(data[obs_num,])),
+                         choices = list(""),
+                         inline = TRUE)))
       tmp <- lapply(2:(ncol(data)-1), function(x){
         list(id = paste("rd", as.character(x-1), i, sep = "_"),
              type = "radio" ,
-             title = paste(x, "Variable", colnames(data)[x], "contributes to price: ", sep = " "),
-             hint = HTML(create_html_table(data[i,])),
+             title = "",
+             hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
              choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
              inline = TRUE)
       })  
       questions <- c(questions, tmp)
+      obs_num <- obs_num+1
     }
     
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
