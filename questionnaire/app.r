@@ -42,8 +42,8 @@ ui <- shiny::htmlTemplate(
   # Index Page
   "www/index.html",
   
-  email = textInput(
-    "email",
+  email_address = textInput(
+    "email_address",
     "Email address",
     width = 500
   ),
@@ -177,6 +177,10 @@ server <- function(input, output) {
   })
 
   form_data_st <- reactive({
+    validate(need(
+      input$email_address != "",
+      "E-mail address has to be passed"
+    ))
     data <- data_sample() %>% 
       mutate_if(is.factor, as.character) 
     n <- nrow(data)
@@ -190,15 +194,18 @@ server <- function(input, output) {
            choices = sample(colnames(data)[2:8]),
            inline = TRUE)
     })
-    browser()
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m(), collapse = "-"),
-                    email = input$email)
+                    email_address = input$email_address)
     list(id = id, questions = questions, storage = storage)
   })
 
   form_data_nd <- reactive({
+    validate(need(
+      input$email_address != "",
+      "E-mail address has to be passed"
+    ))
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
     id <- "nd_Question"
@@ -213,11 +220,15 @@ server <- function(input, output) {
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m(), collapse = "-"),
-                    email = input$emai)
+                    email_address = input$email_address)
     list(id = id, questions = questions, storage = storage)
   })
 
   form_data_rd <- reactive({
+    validate(need(
+      input$email_address != "",
+      "E-mail address has to be passed"
+    ))
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
     id <- "rd_Question"
@@ -247,7 +258,7 @@ server <- function(input, output) {
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m()[sample_short], collapse = "-"),
-                    email = input$emai)
+                    email_address = input$email_address)
     list(id = id, questions = questions, storage = storage)
   })
 
