@@ -86,7 +86,8 @@ ui <- shiny::htmlTemplate(
 server <- function(input, output) {
   
   data <- read.csv("phones.csv") %>% 
-    select(name, brand, front_camera_mpix, back_camera_mpix, battery_mAh, flash_gb, diag, price)
+    mutate(resolution_Mpx = height_px*width_px/1000000) %>%
+    select(name, brand, front_camera_mpix, back_camera_mpix, battery_mAh, flash_gb, diag, resolution_Mpx, price)
 
   m <- reactive({
     sample(1:nrow(data), input$sample_size)
@@ -132,7 +133,7 @@ server <- function(input, output) {
     if (input$Click.Counter==1){
       return(
         list(
-          h5(paste("Type 1/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 1/", 1 ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_nd())
           })
@@ -141,10 +142,10 @@ server <- function(input, output) {
 
     }
 
-    if (input$Click.Counter==2 & input$questions > 1){
+    if (input$Click.Counter==2){
       return(
         list(
-          h5(paste("Type 2/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 2/", 2 ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_st())
           })
@@ -152,10 +153,10 @@ server <- function(input, output) {
       )
     }
 
-    if (input$Click.Counter==3 & input$questions > 2){
+    if (input$Click.Counter==3){
       return(
         list(
-          h5(paste("Type 3/", input$questions ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 3/", 3 ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
           renderUI({
             formUI(form_data_rd())
           })
@@ -163,7 +164,7 @@ server <- function(input, output) {
       )
     }
 
-    if (input$Click.Counter==4 | input$Click.Counter==3 & input$questions == 2 | input$Click.Counter==2 & input$questions == 1){
+    if (input$Click.Counter==4){
       shinyjs::disable("Click.Counter")
       return(
         list(
@@ -186,12 +187,14 @@ server <- function(input, output) {
            type = "order" ,
            title = paste0("Observation: ", as.character(x)),
            hint = HTML(create_html_table(data[x,])),
-           choices = sample(colnames(data)[2:7]),
+           choices = sample(colnames(data)[2:8]),
            inline = TRUE)
     })
+    browser()
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
-                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"))
+                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"),
+                    email = input$email)
     list(id = id, questions = questions, storage = storage)
   })
 
@@ -204,12 +207,13 @@ server <- function(input, output) {
            type = "checkbox_multi" ,
            title = "",
            hint = "Mark the features",
-           choices = as.list(colnames(data)[2:7]),
+           choices = as.list(colnames(data)[2:8]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
-                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"))
+                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"),
+                    email = input$emai)
     list(id = id, questions = questions, storage = storage)
   })
 
@@ -242,7 +246,8 @@ server <- function(input, output) {
     
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
-                    last_phone = input$last_phone, sample = paste0(m()[sample_short], collapse = "-"))
+                    last_phone = input$last_phone, sample = paste0(m()[sample_short], collapse = "-"),
+                    email = input$emai)
     list(id = id, questions = questions, storage = storage)
   })
 
