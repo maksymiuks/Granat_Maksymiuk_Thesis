@@ -138,6 +138,7 @@ server <- function(input, output) {
       shinyjs::disable("domain")
       shinyjs::disable("last_phone")
       shinyjs::disable("xai")
+      shinyjs::disable("email_address")
     })
     
     if (input$Click.Counter==1){
@@ -245,26 +246,25 @@ server <- function(input, output) {
     sample_short <- sample(1:n, floor(n*0.5))
     questions <- list()
     for (i in sample_short) {
-      obs_num<-1
-      questions <- c(questions,
-                    list(list(id = paste("new_obs", obs_num, sep = "_"),
-                         type = "radio" ,
-                         title = "",
-                         hint = HTML(create_html_table(data[obs_num,])),
-                         choices = list(""),
-                         inline = TRUE)))
       tmp <- lapply(2:(ncol(data)-1), function(x){
-        list(id = paste("rd", as.character(x-1), i, sep = "_"),
-             type = "radio" ,
-             title = "",
-             hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
-             choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
-             inline = TRUE)
-      })  
+        if (x == 2) {
+          list(id = paste("rd", as.character(x-1), i, sep = "_"),
+               type = "radio" ,
+               title = HTML(create_html_table(data[i,])),
+               hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
+               choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
+               inline = TRUE)
+        } else {
+          list(id = paste("rd", as.character(x-1), i, sep = "_"),
+               type = "radio" ,
+               title = "",
+               hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
+               choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
+               inline = TRUE)
+        }
+     })  
       questions <- c(questions, tmp)
-      obs_num <- obs_num+1
     }
-    
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m()[sample_short], collapse = "-"),
