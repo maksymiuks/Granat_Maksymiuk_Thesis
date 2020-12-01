@@ -44,7 +44,7 @@ ui <- shiny::htmlTemplate(
   
   email_address = textInput(
     "email_address",
-    "Email address",
+    "Your nick",
     width = 500
   ),
   
@@ -89,8 +89,11 @@ server <- function(input, output) {
     mutate(resolution_Mpx = height_px*width_px/1000000) %>%
     select(name, brand, front_camera_mpix, back_camera_mpix, battery_mAh, flash_gb, diag, resolution_Mpx, price)
 
+  tooltips <- read.csv('tooltips.csv',header = F)[1,]
+  
   m <- reactive({
-    sample(1:nrow(data), input$sample_size)
+    # hardcoded number of telephones
+    sample(1:nrow(data), 7)
   })
   
   data_sample <- reactive({
@@ -100,7 +103,14 @@ server <- function(input, output) {
   })
   
   output$Data <- DT::renderDataTable({
-    DT::datatable(data_sample())
+    DT::datatable(data_sample(),  callback = JS(paste0("
+                                                var tips = [", paste0(paste0("'",as.character(t(tooltips)),"'"),  collapse = ","),
+                                                       "],
+                                                    header = table.columns().header();
+                                                for (var i = 0; i < tips.length; i++) {
+                                                  $(header[i]).attr('title', tips[i]);
+                                                }
+                                                ")))
   })
   
   output$MainAction <- renderUI( {
@@ -123,7 +133,7 @@ server <- function(input, output) {
     # of the survey.
     
     observeEvent(input$Click.Counter, {
-      shinyjs::disable("sample_size")
+      # shinyjs::disable("sample_size")
       shinyjs::disable("questions")
       shinyjs::disable("domain")
       shinyjs::disable("last_phone")
@@ -179,7 +189,7 @@ server <- function(input, output) {
   form_data_st <- reactive({
     validate(need(
       input$email_address != "",
-      "E-mail address has to be passed"
+      "Nick has to be passed"
     ))
     data <- data_sample() %>% 
       mutate_if(is.factor, as.character) 
@@ -204,7 +214,7 @@ server <- function(input, output) {
   form_data_nd <- reactive({
     validate(need(
       input$email_address != "",
-      "E-mail address has to be passed"
+      "Nick has to be passed"
     ))
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
@@ -227,7 +237,7 @@ server <- function(input, output) {
   form_data_rd <- reactive({
     validate(need(
       input$email_address != "",
-      "E-mail address has to be passed"
+      "Nick has to be passed"
     ))
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
