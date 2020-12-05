@@ -64,14 +64,17 @@ ui <- shiny::htmlTemplate(
   domain_knowledge = radioButtons("domain",
                                   "Describe your knowledge about phones market",
                                   choices = c("Professional", "Advanced", "Intermediate", "Novice", "Fundamental"),
-                                  inline = FALSE),
+                                  inline = FALSE,
+                                  selected = "Intermediate"),
   last_phone = radioButtons("last_phone",
                             "When have you bought your current phone?",
-                            choices = c("More than 2 years ago", "Between 2 years and 1 year ago", "Between 1 years and 6 months ago", "Less than 6 months ago")),
+                            choices = c("More than 2 years ago", "Between 2 years and 1 year ago", "Between 1 years and 6 months ago", "Less than 6 months ago"),
+                            selected = "Between 1 years and 6 months ago"),
   xai_knowledge = radioButtons("xai",
                                   "Describe your knowledge about Machine Learning",
                                   choices = c("Professional", "Advanced", "Intermediate", "Novice", "Fundamental"),
-                               inline = FALSE),
+                               inline = FALSE,
+                               selected = "Intermediate"),
   
   
   data_browser = DT::dataTableOutput("Data"),
@@ -253,14 +256,16 @@ server <- function(input, output) {
                title = HTML(create_html_table(data[i,])),
                hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
                choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
-               inline = TRUE)
+               inline = TRUE,
+               selected = "Neutral")
         } else {
           list(id = paste("rd", as.character(x-1), i, sep = "_"),
                type = "radio" ,
                title = "",
                hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
                choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
-               inline = TRUE)
+               inline = TRUE,
+               selected = "Neutral")
         }
      })  
       questions <- c(questions, tmp)
