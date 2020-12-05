@@ -1,4 +1,4 @@
-"name","brand","front_camera_mpix","back_camera_mpix","battery_mAh","ram_gb","flash_gb","diag","height_px","width_px","price"
+"name","brand","back_camera_mpix","front_camera_mpix","battery_mAh","ram_gb","flash_gb","diag","height_px","width_px","price"
 "Xiaomi Mi 10T 6+128GB ","Xiaomi",64,20,5000,6,128,6.67,2400,1080,1999
 "Samsung Galaxy M21 ","Samsung",48,20,6000,4,64,6.4,2340,1080,899
 "Samsung Galaxy Note20 ","Samsung",64,10,4300,8,256,6.7,2400,1080,3749
@@ -254,10 +254,10 @@
 "OPPO A53 4+64GB ","OPPO",13,8,5000,4,64,6.5,1600,720,899
 "ALCATEL 1S 2020 ","ALCATEL",13,5,4000,3,32,6.22,1520,720,469
 "Xiaomi Mi 10T Pro 8+256GB ","Xiaomi",108,20,5000,8,256,6.67,2340,1080,2799
-"Nokia 8.3 5G 8/128GB + sĹ‚uchawki","Nokia",64,24,4500,8,128,6.81,2400,1080,2999
+"Nokia 8.3 5G 8/128GB","Nokia",64,24,4500,8,128,6.81,2400,1080,2999
 "Huawei Mate 40 Pro ","Huawei",50,13,4400,8,256,6.76,2772,1344,5399
-"Apple iPhone 12â€Ś Pro Max 512GB ","Apple",12,12,3687,6,512,6.7,2778,1284,7199
-"Apple iPhone 12â€Ś Pro Max 256GB ","Apple",12,12,3687,6,256,6.7,2778,1284,6199
+"Apple iPhone 12 Pro Max 512GB","Apple",12,12,3687,6,512,6.7,2778,1284,7199
+"Apple iPhone 12 Pro Max 256GB","Apple",12,12,3687,6,256,6.7,2778,1284,6199
 "vivo X51 5G ","vivo",48,32,4315,8,256,6.56,2376,1080,2999
 "vivo Y70 ","vivo",48,16,4100,8,128,6.44,2400,1080,1099
 "vivo Y20s ","vivo",13,8,5000,4,128,6.51,1600,720,799
