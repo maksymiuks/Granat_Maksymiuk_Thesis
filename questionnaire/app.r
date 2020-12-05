@@ -78,7 +78,7 @@ ui <- shiny::htmlTemplate(
   
   questions = uiOutput("MainAction"),
   
-  ccounter = actionButton("Click.Counter", "Next")
+  ccounter = actionButton("Click.Counter", "Next question")
   
 )
 
@@ -103,14 +103,16 @@ server <- function(input, output) {
   })
   
   output$Data <- DT::renderDataTable({
-    DT::datatable(data_sample(),  callback = JS(paste0("
-                                                var tips = [", paste0(paste0("'",as.character(t(tooltips)),"'"),  collapse = ","),
-                                                       "],
-                                                    header = table.columns().header();
-                                                for (var i = 0; i < tips.length; i++) {
-                                                  $(header[i]).attr('title', tips[i]);
-                                                }
-                                                ")))
+    DT::datatable(data_sample(),  
+                  options = list(searching = FALSE, paging = FALSE),
+                  callback = JS(paste0("
+                                        var tips = [", paste0(paste0("'",as.character(t(tooltips)),"'"),  collapse = ","),
+                                               "],
+                                            header = table.columns().header();
+                                        for (var i = 0; i < tips.length; i++) {
+                                          $(header[i]).attr('title', tips[i]);
+                                        }
+                                        ")))
   })
   
   output$MainAction <- renderUI( {
@@ -144,7 +146,7 @@ server <- function(input, output) {
     if (input$Click.Counter==1){
       return(
         list(
-          h5(paste("Type 1/", 1 ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 1/", 3 ,": Looking at the data above please name 3 features affecting price of a telephone the most", sep = "")),
           renderUI({
             formUI(form_data_nd())
           })
@@ -156,7 +158,7 @@ server <- function(input, output) {
     if (input$Click.Counter==2){
       return(
         list(
-          h5(paste("Type 2/", 2 ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 2/", 3 ,": Looking at each telephone separately please use DRAG & DROP functionality to order features from most to least important for the specific phone", sep = "")),
           renderUI({
             formUI(form_data_st())
           })
@@ -167,7 +169,7 @@ server <- function(input, output) {
     if (input$Click.Counter==3){
       return(
         list(
-          h5(paste("Type 3/", 3 ,": Looking at the data above please name 3 features affecting price of a telepohone the most", sep = "")),
+          h5(paste("Type 3/", 3 ,": Looking at each telephone separately please mark what is the impact of the specific variables' values for each phone", sep = "")),
           renderUI({
             formUI(form_data_rd())
           })

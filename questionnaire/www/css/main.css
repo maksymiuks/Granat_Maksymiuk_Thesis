@@ -2732,7 +2732,7 @@ html.no-csstransitions .home-content__main {
 .s-clients {
     padding-top: 16.2rem;
     padding-bottom: 16.8rem;
-    background-color: #e6e6e6;
+    background-color: #ffffff;
     color: #757575;
     position: relative;
 }
@@ -3608,7 +3608,12 @@ footer .row {
 }
 
 .ui-sortable{
-    width: 100% !important;
+  width: 100vw !important; 
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .shiny-options-group{
@@ -3644,6 +3649,27 @@ footer .row {
 
 #mins{
     width: 100px;
+}
+
+#st_Question-submit{
+    color: #000000 !important;
+    background-color: #7896CF !important;
+    
+}
+
+#nd_Question-submit{
+    color: #000000 !important;
+    background-color: #7896CF !important;
+    
+}
+
+#rd_Question-submit{
+    color: #000000 !important;
+    background-color: #7896CF !important;
+}
+
+#services{
+    background-color: #b3b5b3 !important;
 }
 
 /*# sourceMappingURL=main.css.map */
