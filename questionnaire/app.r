@@ -6,7 +6,6 @@ library(shinyjs)
 library(htmlTable)
 library(shinyjqui)
 library(googlesheets4)
-library(shinyalert)
 
 gs4_auth(
   cache = ".secrets",
