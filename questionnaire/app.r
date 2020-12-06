@@ -92,8 +92,8 @@ ui <- shiny::htmlTemplate(
 server <- function(input, output) {
   
   data <- read.csv("phones.csv") %>% 
-    mutate(resolution_Mpx = height_px*width_px/1000000) %>%
-    select(name, brand, front_camera_mpix, back_camera_mpix, battery_mAh, flash_gb, diag, resolution_Mpx, price)
+    mutate(resolution_Mpx = round(height_px*width_px/1000000, 2)) %>%
+    select(name, brand, back_camera_mpix, front_camera_mpix, battery_mAh, flash_gb, diag, resolution_Mpx, price)
 
   tooltips <- read.csv('tooltips.csv',header = F)[1,]
   
