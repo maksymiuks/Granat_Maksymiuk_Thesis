@@ -6,6 +6,7 @@ library(shinyjs)
 library(htmlTable)
 library(shinyjqui)
 library(googlesheets4)
+library(shinyalert)
 
 gs4_auth(
   cache = ".secrets",
@@ -13,6 +14,8 @@ gs4_auth(
 )
 
 create_html_table <- function(data_row){
+  data_row <- as.matrix(data_row)
+  rownames(data_row) <- NULL
   as.character(htmlTable(
     data_row,
     css.cell = rbind(rep("border-collapse: collapse;
@@ -41,6 +44,7 @@ create_html_table <- function(data_row){
 ui <- shiny::htmlTemplate(
   # Index Page
   "www/index.html",
+ 
   
   email_address = textInput(
     "email_address",
@@ -96,17 +100,19 @@ server <- function(input, output) {
   
   m <- reactive({
     # hardcoded number of telephones
-    sample(1:nrow(data), 7)
+    sample(1:nrow(data), 8)
   })
   
   data_sample <- reactive({
     ret <- data[m(),]
+    ret <- ret[order(ret$price, decreasing = TRUE),]
     rownames(ret) <- NULL
     ret
   })
   
   output$Data <- DT::renderDataTable({
     DT::datatable(data_sample(),  
+                  rownames = FALSE,
                   options = list(searching = FALSE, paging = FALSE),
                   callback = JS(paste0("
                                         var tips = [", paste0(paste0("'",as.character(t(tooltips)),"'"),  collapse = ","),
@@ -119,6 +125,10 @@ server <- function(input, output) {
   })
   
   output$MainAction <- renderUI( {
+    if (input$Click.Counter==1){
+      showNotification("Remember to SUBMIT answers before moving to the next question. NEXT button takes you to the next question without saving the data.", closeButton = TRUE, id = "Alert", duration = 10, type = "message")
+    }
+    
     dynamicUi()
   })
 
@@ -145,6 +155,7 @@ server <- function(input, output) {
       shinyjs::disable("xai")
       shinyjs::disable("email_address")
     })
+    
     
     if (input$Click.Counter==1){
       return(
@@ -201,18 +212,18 @@ server <- function(input, output) {
       mutate_if(is.factor, as.character) 
     n <- nrow(data)
     id <- "st_Question"
-
-    questions <- lapply(1:n, function(x){
+    sample_middle <- sort(sample(1:n, 4), decreasing = FALSE)
+    questions <- lapply(sample_middle, function(x){
       list(id = paste("st", as.character(x), sep = "_"),
            type = "order" ,
-           title = paste0("Observation: ", as.character(x)),
+#           title = paste0("Observation: ", as.character(x)),
            hint = HTML(create_html_table(data[x,])),
            choices = sample(colnames(data)[2:8]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
-                    last_phone = input$last_phone, sample = paste0(m(), collapse = "-"),
+                    last_phone = input$last_phone, sample = paste0(m()[sample_middle], collapse = "-"),
                     email_address = input$email_address)
     list(id = id, questions = questions, storage = storage)
   })
@@ -248,7 +259,7 @@ server <- function(input, output) {
     data <- data_sample() %>% mutate_if(is.factor, as.character)
     n <- nrow(data)
     id <- "rd_Question"
-    sample_short <- sample(1:n, floor(n*0.5))
+    sample_short <- sort(sample(1:n, 2), decreasing = FALSE)
     questions <- list()
     for (i in sample_short) {
       tmp <- lapply(2:(ncol(data)-1), function(x){
@@ -257,7 +268,7 @@ server <- function(input, output) {
                type = "radio" ,
                title = HTML(create_html_table(data[i,])),
                hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
-               choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
+               choices = list("Highly increases", "Slightly increases", "Neutral", "Slightly decreases", "Highly decreases"),
                inline = TRUE,
                selected = "Neutral")
         } else {
@@ -265,7 +276,7 @@ server <- function(input, output) {
                type = "radio" ,
                title = "",
                hint = paste("Variable", colnames(data)[x], "contributes to price: ", sep = " "),
-               choices = list("Highly positive", "Slightly positive", "Neutral", "Slightly negative", "Highly negative"),
+               choices = list("Highly increases", "Slightly increases", "Neutral", "Slightly decreases", "Highly decreases"),
                inline = TRUE,
                selected = "Neutral")
         }
