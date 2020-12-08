@@ -6,6 +6,7 @@ library(shinyjs)
 library(htmlTable)
 library(shinyjqui)
 library(googlesheets4)
+library(shinyalert)
 
 gs4_auth(
   cache = ".secrets",
@@ -50,6 +51,8 @@ ui <- shiny::htmlTemplate(
     "Your nick",
     width = 500
   ),
+  
+  # useShinyalert(),
   
   sample_size = numericInput("sample_size", 
                             "Number of minutes (approx.)",
@@ -123,14 +126,18 @@ server <- function(input, output) {
                                         ")))
   })
   
+
+  
   output$MainAction <- renderUI( {
-    if (input$Click.Counter==1){
-      showNotification("Remember to SUBMIT answers before moving to the next question. NEXT button takes you to the next question without saving the data.", closeButton = TRUE, id = "Alert", duration = 10, type = "message")
-    }
-    
     dynamicUi()
   })
 
+  observeEvent(input$Click.Counter, {
+    if(input$Click.Counter==1){
+      shinyalert("Important information!", "Clicking 'Next question' button before submitting your answers will skip the question you are currently solving", type = "info")
+    }
+  })
+  
   observeEvent(input$close, {
     stopApp()
   })
