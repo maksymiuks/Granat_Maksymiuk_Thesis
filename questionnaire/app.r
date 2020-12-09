@@ -39,8 +39,6 @@ create_html_table <- function(data_row){
 }
 
 
-
-
 ui <- shiny::htmlTemplate(
   # Index Page
   "www/index.html",
@@ -134,7 +132,7 @@ server <- function(input, output) {
 
   observeEvent(input$Click.Counter, {
     if(input$Click.Counter==1){
-      shinyalert("Important information!", "Clicking 'Next question' button before submitting your answers will skip the question you are currently solving", type = "info")
+      shinyalert("Important information!", "Clicking 'Next question' button before 'Submit answers'  will skip the question you are currently solving without sending the answers", type = "info")
     }
   })
   
