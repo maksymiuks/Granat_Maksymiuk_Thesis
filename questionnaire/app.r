@@ -185,6 +185,8 @@ server <- function(input, output) {
     }
 
     if (input$Click.Counter==3){
+      shinyjs::disable("Click.Counter")
+      shinyjs::hide("Click.Counter")
       return(
         list(
           h5(paste("Type 3/", 3 ,": Looking at each telephone separately please mark what is the impact of the specific variables' values for each phone", sep = "")),
@@ -197,6 +199,7 @@ server <- function(input, output) {
 
     if (input$Click.Counter==4){
       shinyjs::disable("Click.Counter")
+      shinyjs::hide("Click.Counter")
       return(
         list(
           h5("That is everything we prepared for You. Thank You for participation"),
