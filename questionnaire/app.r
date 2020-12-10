@@ -132,7 +132,7 @@ server <- function(input, output) {
 
   observeEvent(input$Click.Counter, {
     if(input$Click.Counter==1){
-      shinyalert("Important information!", "Clicking 'Next question' button before 'Submit answers'  will skip the question you are currently solving without sending the answers", type = "info")
+      shinyalert("Important information!", "SUBMIT each question type SEPARATELY with 'Submit answers' button. Clicking 'Next question' before submitting will skip it without sending your answers.", type = "info")
     }
   })
   
@@ -144,7 +144,7 @@ server <- function(input, output) {
     if (input$Click.Counter==0)
       return(
         list(
-          h5("Please fill all of the following questions and remember to SUBMIT your answers")
+          h5("Please fill all of the following questions and SUBMIT each type of question SEPARATELY")
         )
       )
 
