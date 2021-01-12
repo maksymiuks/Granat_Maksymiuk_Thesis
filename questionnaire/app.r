@@ -94,7 +94,7 @@ server <- function(input, output) {
   
   data <- read.csv("phones.csv") %>% 
     mutate(resolution_Mpx = round(height_px*width_px/1000000, 2)) %>%
-    select(name, brand, back_camera_mpix, front_camera_mpix, battery_mAh, flash_gb, diag, resolution_Mpx, price)
+    select(name, brand, back_camera_mpix, front_camera_mpix, battery_mAh, flash_gb, ram_gb, diag, resolution_Mpx, price)
 
   tooltips <- read.csv('tooltips.csv',header = F)[1,]
   
@@ -225,7 +225,7 @@ server <- function(input, output) {
            type = "order" ,
 #           title = paste0("Observation: ", as.character(x)),
            hint = HTML(create_html_table(data[x,])),
-           choices = sample(colnames(data)[2:8]),
+           choices = sample(colnames(data)[2:ncol(data)-1]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
@@ -248,7 +248,7 @@ server <- function(input, output) {
            type = "checkbox_multi" ,
            title = "",
            hint = "Mark the features",
-           choices = as.list(colnames(data)[2:8]),
+           choices = as.list(colnames(data)[2:ncol(data)-1]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
