@@ -5,3 +5,8 @@ Rshiny Formularze:
 - https://medium.com/@joyplumeri/using-r-shiny-to-create-web-surveys-display-instant-feedback-and-store-data-on-google-drive-68f46eea0f8b
 - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0232424
 - https://github.com/aaronrkaufman/shinySurveys
+
+Źródła:
+
+- testy:
+https://blog.testlodge.com/what-is-usability-testing-with-example/#:~:text=For%20example%2C%20if%20you%20are,trying%20to%20buy%20their%20groceries.

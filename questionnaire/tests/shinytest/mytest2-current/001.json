@@ -1,0 +1,144 @@
+{
+  "input": {
+    "Click.Counter": 0,
+    "Data_cell_clicked": {
+
+    },
+    "Data_cells_selected": [
+
+    ],
+    "Data_columns_selected": null,
+    "Data_rows_all": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "Data_rows_current": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "Data_rows_selected": null,
+    "Data_search": "",
+    "Data_state": null,
+    "domain": "Intermediate",
+    "email_address": "",
+    "last_phone": "Between 1 years and 6 months ago",
+    "xai": "Intermediate"
+  },
+  "output": {
+    "Data": {
+      "x": {
+        "filter": "none",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>name<\/th>\n      <th>brand<\/th>\n      <th>back_camera_mpix<\/th>\n      <th>front_camera_mpix<\/th>\n      <th>battery_mAh<\/th>\n      <th>flash_gb<\/th>\n      <th>diag<\/th>\n      <th>resolution_Mpx<\/th>\n      <th>price<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "searching": false,
+          "paging": false,
+          "columnDefs": [
+            {
+              "className": "dt-right",
+              "targets": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "callback": "function(table) {\n\n                                        var tips = ['Phone model','Phone brand','Back Camera Megapixels','Front Camera Megapixels','Battery capacity in mAh','Flash memory storage in GB','Screen diagonal','Screen resolution in Megapixels','Price in PLN'],\n                                            header = table.columns().header();\n                                        for (var i = 0; i < tips.length; i++) {\n                                          $(header[i]).attr('title', tips[i]);\n                                        }\n                                        \n}",
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.ajax.data",
+        "callback"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-core-1.10.20"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "MainAction": {
+      "html": "<h5>Please fill all of the following questions and remember to SUBMIT your answers<\/h5>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
