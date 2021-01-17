@@ -132,7 +132,9 @@ server <- function(input, output) {
 
   observeEvent(input$Click.Counter, {
     if(input$Click.Counter==1){
-      shinyalert("Important information!", "SUBMIT each question type SEPARATELY with 'Submit answers' button. Clicking 'Next question' before submitting will skip it without sending your answers.", type = "info")
+      shinyalert("Important information!",
+                 "SUBMIT each question type SEPARATELY with 'Submit answers' button. Clicking 'Next question' before submitting will skip it without sending your answers.", 
+                 type = "info")
     }
   })
   

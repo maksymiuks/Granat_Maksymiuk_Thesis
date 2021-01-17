@@ -18,7 +18,6 @@ df1 <- read_sheet(
    sheet = 'q1',
    col_names = c('answer','timestamp','market_knowledge','ml_knowledge','phone_purchase','ids','nick')
 )
-
 # split answers into features
 df1 <- df1 %>%
   separate(
@@ -26,7 +25,6 @@ df1 <- df1 %>%
     c("feature_1", "feature_2", "feature_3"), 
     "-"
   )
-
 # aggreagte data
 result1 <- df1 %>% 
   select(c("feature_1", "feature_2", "feature_3")) %>% 
@@ -36,23 +34,16 @@ result1 <- df1 %>%
   group_by(feature) %>%
   summarise('freq' = n()) %>% 
   mutate(freq_scaled = freq/max(freq))
-
+# save results
 saveRDS(result1, '../data/annotations/result_question_1.rds')
 
 # QUESTION 2 ----
-
+# read data directly from google sheets
 df2 <- read_sheet(
   "https://docs.google.com/spreadsheets/d/17z5PCEqibD-wJ_B3ZDG_o6NpfeXl6YTdxd-AJU4fEcs/edit#gid=1049670593", 
   sheet = 'q2',
   col_names = F
 )
-
-df2 <- read_excel(
-  'data/answers_1712.xlsx',
-  sheet = 'q2',
-  col_names = F
-)
-
 # separate phones ids
 df2 <- df2 %>%
   separate(
@@ -94,15 +85,16 @@ saveRDS(result2_proc, '../data/annotations/result_question_2.rds')
 
 # QUESTION 3 ----
 
-df3 <- read_excel(
-  'data/answers_1712.xlsx',
+# read data directly from google sheets
+df3 <- read_sheet(
+  "https://docs.google.com/spreadsheets/d/17z5PCEqibD-wJ_B3ZDG_o6NpfeXl6YTdxd-AJU4fEcs/edit#gid=1049670593", 
   sheet = 'q3',
   col_names = F
 )
 
 df3 <- df3 %>%
   separate(
-    ...19, 
+    ...21, 
     c("id_1", "id_2"), 
     "-"
   )
@@ -113,17 +105,18 @@ col_names <- c(
   'front_camera_mpix',
   'battery_mAh',
   'flash_gb',
+  'ram_gb',
   'diag',
   'resolution_Mpx',
   'id'
 )
 
 result3 <- rbind(
-  df3 %>% select(1:7, id = id_1) %>% setNames(col_names),
-  df3 %>% select(8:14, id = id_2) %>% setNames(col_names)
+  df3 %>% select(1:8, id = id_1) %>% setNames(col_names),
+  df3 %>% select(9:16, id = id_2) %>% setNames(col_names)
 ) 
 
 result3 <- result3 %>% 
   mutate_all(function(x) recode(x, '"Highly decreases"=-2; "Slightly decreases"=-1; "Neutral"=0; "Slightly increases"=1; "Highly increases"=2;'))
 
-saveRDS(result3, 'data_processing/result3.rds')
+saveRDS(result3, '../data/annotations/result_question_3.rds')
