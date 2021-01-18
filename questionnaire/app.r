@@ -100,7 +100,8 @@ server <- function(input, output) {
   
   m <- reactive({
     # hardcoded number of telephones
-    sample(1:nrow(data), 8)
+    ret <- sample(1:nrow(data), 8)
+    ret[order(data$price[ret], decreasing = TRUE)]
   })
   
   data_sample <- reactive({
@@ -225,7 +226,7 @@ server <- function(input, output) {
            type = "order" ,
 #           title = paste0("Observation: ", as.character(x)),
            hint = HTML(create_html_table(data[x,])),
-           choices = sample(colnames(data)[2:ncol(data)-1]),
+           choices = sample(colnames(data)[2:(ncol(data)-1)]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
@@ -248,7 +249,7 @@ server <- function(input, output) {
            type = "checkbox_multi" ,
            title = "",
            hint = "Mark the features",
-           choices = as.list(colnames(data)[2:ncol(data)-1]),
+           choices = as.list(colnames(data)[2:(ncol(data)-1)]),
            inline = TRUE)
     })
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
