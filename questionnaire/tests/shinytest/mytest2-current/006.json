@@ -1,0 +1,447 @@
+{
+  "input": {
+    "Click.Counter": 3,
+    "Data_cell_clicked": {
+
+    },
+    "Data_cells_selected": [
+
+    ],
+    "Data_columns_selected": null,
+    "Data_rows_all": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "Data_rows_current": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "Data_rows_selected": null,
+    "Data_search": "",
+    "Data_state": null,
+    "domain": "Fundamental",
+    "email_address": "test",
+    "last_phone": "Less than 6 months ago",
+    "nd_Question-adminpw": "",
+    "nd_Question-ndnd1": null,
+    "nd_Question-shinyjs-resettable-nd_Question-form": {
+      "nd_Question-ndnd1": {
+        "type": "CheckboxGroup",
+        "value": "[]"
+      }
+    },
+    "nd_Question-showhide": 0,
+    "nd_Question-submit": 1,
+    "nd_Question-submitPw": 0,
+    "st_Question-adminpw": "",
+    "st_Question-showhide": 0,
+    "st_Question-submit": 0,
+    "st_Question-submitPw": 0,
+    "xai": "Fundamental"
+  },
+  "output": {
+    "Data": {
+      "x": {
+        "filter": "none",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>name<\/th>\n      <th>brand<\/th>\n      <th>back_camera_mpix<\/th>\n      <th>front_camera_mpix<\/th>\n      <th>battery_mAh<\/th>\n      <th>flash_gb<\/th>\n      <th>diag<\/th>\n      <th>resolution_Mpx<\/th>\n      <th>price<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "searching": false,
+          "paging": false,
+          "columnDefs": [
+            {
+              "className": "dt-right",
+              "targets": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "callback": "function(table) {\n\n                                        var tips = ['Phone model','Phone brand','Back Camera Megapixels','Front Camera Megapixels','Battery capacity in mAh','Flash memory storage in GB','Screen diagonal','Screen resolution in Megapixels','Price in PLN'],\n                                            header = table.columns().header();\n                                        for (var i = 0; i < tips.length; i++) {\n                                          $(header[i]).attr('title', tips[i]);\n                                        }\n                                        \n}",
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.ajax.data",
+        "callback"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-core-1.10.20"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "MainAction": {
+      "html": "<h5>Type 3/3: Looking at each telephone separately please mark what is the impact of the specific variables' values for each phone<\/h5>\n<div id=\"out7b268c0e572c2d73\" class=\"shiny-html-output\"><\/div>",
+      "deps": [
+
+      ]
+    },
+    "nd_Question-responsesTable": {
+      "x": {
+        "filter": "none",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th>V1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "columnDefs": [
+            {
+              "className": "dt-right",
+              "targets": 0
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = true;\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "multiple",
+          "selected": null,
+          "target": "row",
+          "selectable": null
+        }
+      },
+      "evals": [
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-core-1.10.20"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "out3ebf35d802bf0d1a": {
+      "html": "<div class=\"shinyforms-ui\">\n  <!--SHINY.SINGLETON[c43e97d24bbfe816ff586588b948aad02137388d]-->\n  <head>\n    <script>Shiny.addCustomMessageHandler('shinyjs-show', function(params) { shinyjs.debugMessage('shinyjs: calling function \"show\" with parameters:'); shinyjs.debugMessage(params); shinyjs.show(params);});\nShiny.addCustomMessageHandler('shinyjs-hide', function(params) { shinyjs.debugMessage('shinyjs: calling function \"hide\" with parameters:'); shinyjs.debugMessage(params); shinyjs.hide(params);});\nShiny.addCustomMessageHandler('shinyjs-toggle', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggle\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggle(params);});\nShiny.addCustomMessageHandler('shinyjs-enable', function(params) { shinyjs.debugMessage('shinyjs: calling function \"enable\" with parameters:'); shinyjs.debugMessage(params); shinyjs.enable(params);});\nShiny.addCustomMessageHandler('shinyjs-disable', function(params) { shinyjs.debugMessage('shinyjs: calling function \"disable\" with parameters:'); shinyjs.debugMessage(params); shinyjs.disable(params);});\nShiny.addCustomMessageHandler('shinyjs-toggleState', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggleState\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleState(params);});\nShiny.addCustomMessageHandler('shinyjs-addClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"addClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.addClass(params);});\nShiny.addCustomMessageHandler('shinyjs-removeClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"removeClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.removeClass(params);});\nShiny.addCustomMessageHandler('shinyjs-toggleClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggleClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleClass(params);});\nShiny.addCustomMessageHandler('shinyjs-html', function(params) { shinyjs.debugMessage('shinyjs: calling function \"html\" with parameters:'); shinyjs.debugMessage(params); shinyjs.html(params);});\nShiny.addCustomMessageHandler('shinyjs-onevent', function(params) { shinyjs.debugMessage('shinyjs: calling function \"onevent\" with parameters:'); shinyjs.debugMessage(params); shinyjs.onevent(params);});\nShiny.addCustomMessageHandler('shinyjs-alert', function(params) { shinyjs.debugMessage('shinyjs: calling function \"alert\" with parameters:'); shinyjs.debugMessage(params); shinyjs.alert(params);});\nShiny.addCustomMessageHandler('shinyjs-logjs', function(params) { shinyjs.debugMessage('shinyjs: calling function \"logjs\" with parameters:'); shinyjs.debugMessage(params); shinyjs.logjs(params);});\nShiny.addCustomMessageHandler('shinyjs-runjs', function(params) { shinyjs.debugMessage('shinyjs: calling function \"runjs\" with parameters:'); shinyjs.debugMessage(params); shinyjs.runjs(params);});\nShiny.addCustomMessageHandler('shinyjs-reset', function(params) { shinyjs.debugMessage('shinyjs: calling function \"reset\" with parameters:'); shinyjs.debugMessage(params); shinyjs.reset(params);});\nShiny.addCustomMessageHandler('shinyjs-delay', function(params) { shinyjs.debugMessage('shinyjs: calling function \"delay\" with parameters:'); shinyjs.debugMessage(params); shinyjs.delay(params);});\nShiny.addCustomMessageHandler('shinyjs-click', function(params) { shinyjs.debugMessage('shinyjs: calling function \"click\" with parameters:'); shinyjs.debugMessage(params); shinyjs.click(params);});\nShiny.addCustomMessageHandler('shinyjs-refresh', function(params) { shinyjs.debugMessage('shinyjs: calling function \"refresh\" with parameters:'); shinyjs.debugMessage(params); shinyjs.refresh(params);});<\/script>\n    <script src=\"shinyjs/shinyjs-default-funcs.js\"><\/script>\n    <script>shinyjs.debug = false;<\/script>\n    <head>\n      <style>.shinyjs-hide { display: none !important; }<\/style>\n    <\/head>\n  <\/head>\n  <!--/SHINY.SINGLETON[c43e97d24bbfe816ff586588b948aad02137388d]-->\n  <head>\n    <style>\n.shinyforms-ui .mandatory_star { color: #db4437; font-size: 20px; line-height: 0; }\n.shinyforms-ui .sf-questions { margin-bottom: 30px; }\n.shinyforms-ui .sf-question { margin-top: 25px; font-size: 16px; }\n.shinyforms-ui .question-hint { font-size: 14px; color: #737373; font-weight: normal; }\n.shinyforms-ui .action-button.btn { font-size: 16px; margin-right: 10px; }\n.shinyforms-ui .thankyou_msg { margin-top: 10px; }\n.shinyforms-ui .showhide { margin-top: 10px; display: inline-block; }\n.shinyforms-ui .sf_submit_msg { font-weight: bold; }\n.shinyforms-ui .sf_error { margin-top: 15px; color: red; }\n.shinyforms-ui .answers { margin-top: 25px; }\n.shinyforms-ui .pw-box { margin-top: -20px; }\n.shinyforms-ui .created-by { font-size: 12px; font-style: italic; color: #777; margin: 25px auto 10px;}\n<\/style>\n  <\/head>\n  <div id=\"st_Question-form\">\n    <div class=\"sf-questions\">\n      <div class=\"sf-question\">\n        <label for=\"st_Question-st_2\" class=\"sf-input-label\">\n          <div class=\"question-hint\"><table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >\n<thead>\n<tr>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>name<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>brand<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>back_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>front_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>battery_mAh<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>flash_gb<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>diag<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>resolution_Mpx<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>price<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Huawei P40 <\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Huawei<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>50<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>32<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>3800<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>128<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>6.1<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>2.53<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>2639<\/td>\n<\/tr>\n<\/tbody>\n<\/table><\/div>\n        <\/label>\n        <label for=\"st_Question-st_2\"><\/label>\n        <div id=\"st_Question-st_2\" style=\"width: 500px; font-size: 0px; min-height: 25px;\">\n          <div data-value=\"flash_gb\" class=\"btn btn-default\" style=\"margin: 1px\">flash_gb<\/div>\n          <div data-value=\"diag\" class=\"btn btn-default\" style=\"margin: 1px\">diag<\/div>\n          <div data-value=\"resolution_Mpx\" class=\"btn btn-default\" style=\"margin: 1px\">resolution_Mpx<\/div>\n          <div data-value=\"front_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">front_camera_mpix<\/div>\n          <div data-value=\"battery_mAh\" class=\"btn btn-default\" style=\"margin: 1px\">battery_mAh<\/div>\n          <div data-value=\"back_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">back_camera_mpix<\/div>\n          <div data-value=\"brand\" class=\"btn btn-default\" style=\"margin: 1px\">brand<\/div>\n        <\/div>\n        <script class=\"jqui_self_cleaning_script\">$(function(){setTimeout(function(){shinyjqui.msgCallback({\"ui\":\"[id='st_Question-st_2']\",\"type\":\"interaction\",\"func\":\"sortable\",\"operation\":\"enable\",\"options\":{\"connectWith\":\"false\",\"remove\":\"function(e, ui){if(!$(e.target).children().length)$(e.target).empty();}\",\"shiny\":{\"order\":{\"sortcreate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\",\"sortupdate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\"}}},\"debug\":false,\"_js_idx\":{\"ui\":false,\"type\":false,\"func\":false,\"operation\":false,\"options\":{\"connectWith\":false,\"remove\":true,\"shiny\":{\"order\":{\"sortcreate\":true,\"sortupdate\":true}}},\"debug\":false}});\n      $(\".jqui_self_cleaning_script\").remove();}, 10);});<\/script>\n      <\/div>\n      <div class=\"sf-question\">\n        <label for=\"st_Question-st_3\" class=\"sf-input-label\">\n          <div class=\"question-hint\"><table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >\n<thead>\n<tr>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>name<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>brand<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>back_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>front_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>battery_mAh<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>flash_gb<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>diag<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>resolution_Mpx<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>price<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Apple iPhone 7 128GB <\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Apple<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>12<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>7<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>1960<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>128<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>4.7<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>1<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>1499<\/td>\n<\/tr>\n<\/tbody>\n<\/table><\/div>\n        <\/label>\n        <label for=\"st_Question-st_3\"><\/label>\n        <div id=\"st_Question-st_3\" style=\"width: 500px; font-size: 0px; min-height: 25px;\">\n          <div data-value=\"diag\" class=\"btn btn-default\" style=\"margin: 1px\">diag<\/div>\n          <div data-value=\"battery_mAh\" class=\"btn btn-default\" style=\"margin: 1px\">battery_mAh<\/div>\n          <div data-value=\"flash_gb\" class=\"btn btn-default\" style=\"margin: 1px\">flash_gb<\/div>\n          <div data-value=\"front_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">front_camera_mpix<\/div>\n          <div data-value=\"brand\" class=\"btn btn-default\" style=\"margin: 1px\">brand<\/div>\n          <div data-value=\"resolution_Mpx\" class=\"btn btn-default\" style=\"margin: 1px\">resolution_Mpx<\/div>\n          <div data-value=\"back_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">back_camera_mpix<\/div>\n        <\/div>\n        <script class=\"jqui_self_cleaning_script\">$(function(){setTimeout(function(){shinyjqui.msgCallback({\"ui\":\"[id='st_Question-st_3']\",\"type\":\"interaction\",\"func\":\"sortable\",\"operation\":\"enable\",\"options\":{\"connectWith\":\"false\",\"remove\":\"function(e, ui){if(!$(e.target).children().length)$(e.target).empty();}\",\"shiny\":{\"order\":{\"sortcreate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\",\"sortupdate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\"}}},\"debug\":false,\"_js_idx\":{\"ui\":false,\"type\":false,\"func\":false,\"operation\":false,\"options\":{\"connectWith\":false,\"remove\":true,\"shiny\":{\"order\":{\"sortcreate\":true,\"sortupdate\":true}}},\"debug\":false}});\n      $(\".jqui_self_cleaning_script\").remove();}, 10);});<\/script>\n      <\/div>\n      <div class=\"sf-question\">\n        <label for=\"st_Question-st_7\" class=\"sf-input-label\">\n          <div class=\"question-hint\"><table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >\n<thead>\n<tr>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>name<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>brand<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>back_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>front_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>battery_mAh<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>flash_gb<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>diag<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>resolution_Mpx<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>price<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Xiaomi Redmi 7A 2/16GB <\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Xiaomi<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>12<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>5<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>4000<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>16<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>5.45<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>1.04<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>399<\/td>\n<\/tr>\n<\/tbody>\n<\/table><\/div>\n        <\/label>\n        <label for=\"st_Question-st_7\"><\/label>\n        <div id=\"st_Question-st_7\" style=\"width: 500px; font-size: 0px; min-height: 25px;\">\n          <div data-value=\"back_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">back_camera_mpix<\/div>\n          <div data-value=\"brand\" class=\"btn btn-default\" style=\"margin: 1px\">brand<\/div>\n          <div data-value=\"resolution_Mpx\" class=\"btn btn-default\" style=\"margin: 1px\">resolution_Mpx<\/div>\n          <div data-value=\"battery_mAh\" class=\"btn btn-default\" style=\"margin: 1px\">battery_mAh<\/div>\n          <div data-value=\"diag\" class=\"btn btn-default\" style=\"margin: 1px\">diag<\/div>\n          <div data-value=\"front_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">front_camera_mpix<\/div>\n          <div data-value=\"flash_gb\" class=\"btn btn-default\" style=\"margin: 1px\">flash_gb<\/div>\n        <\/div>\n        <script class=\"jqui_self_cleaning_script\">$(function(){setTimeout(function(){shinyjqui.msgCallback({\"ui\":\"[id='st_Question-st_7']\",\"type\":\"interaction\",\"func\":\"sortable\",\"operation\":\"enable\",\"options\":{\"connectWith\":\"false\",\"remove\":\"function(e, ui){if(!$(e.target).children().length)$(e.target).empty();}\",\"shiny\":{\"order\":{\"sortcreate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\",\"sortupdate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\"}}},\"debug\":false,\"_js_idx\":{\"ui\":false,\"type\":false,\"func\":false,\"operation\":false,\"options\":{\"connectWith\":false,\"remove\":true,\"shiny\":{\"order\":{\"sortcreate\":true,\"sortupdate\":true}}},\"debug\":false}});\n      $(\".jqui_self_cleaning_script\").remove();}, 10);});<\/script>\n      <\/div>\n      <div class=\"sf-question\">\n        <label for=\"st_Question-st_8\" class=\"sf-input-label\">\n          <div class=\"question-hint\"><table class='gmisc_table' style='border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;' >\n<thead>\n<tr>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>name<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>brand<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>back_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>front_camera_mpix<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>battery_mAh<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>flash_gb<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>diag<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>resolution_Mpx<\/th>\n<th style='font-weight: 900; border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>price<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Huawei Y6 2019 <\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>Huawei<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>13<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>8<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>3000<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>32<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>6.09<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>1.12<\/td>\n<td style='border-collapse: collapse; margin: 25px 0; font-size: 0.9em; padding-left: .5em; padding-right: .5em; font-family: sans-serif; border-bottom: 2px solid grey; text-align: center;'>399<\/td>\n<\/tr>\n<\/tbody>\n<\/table><\/div>\n        <\/label>\n        <label for=\"st_Question-st_8\"><\/label>\n        <div id=\"st_Question-st_8\" style=\"width: 500px; font-size: 0px; min-height: 25px;\">\n          <div data-value=\"battery_mAh\" class=\"btn btn-default\" style=\"margin: 1px\">battery_mAh<\/div>\n          <div data-value=\"resolution_Mpx\" class=\"btn btn-default\" style=\"margin: 1px\">resolution_Mpx<\/div>\n          <div data-value=\"brand\" class=\"btn btn-default\" style=\"margin: 1px\">brand<\/div>\n          <div data-value=\"diag\" class=\"btn btn-default\" style=\"margin: 1px\">diag<\/div>\n          <div data-value=\"back_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">back_camera_mpix<\/div>\n          <div data-value=\"front_camera_mpix\" class=\"btn btn-default\" style=\"margin: 1px\">front_camera_mpix<\/div>\n          <div data-value=\"flash_gb\" class=\"btn btn-default\" style=\"margin: 1px\">flash_gb<\/div>\n        <\/div>\n        <script class=\"jqui_self_cleaning_script\">$(function(){setTimeout(function(){shinyjqui.msgCallback({\"ui\":\"[id='st_Question-st_8']\",\"type\":\"interaction\",\"func\":\"sortable\",\"operation\":\"enable\",\"options\":{\"connectWith\":\"false\",\"remove\":\"function(e, ui){if(!$(e.target).children().length)$(e.target).empty();}\",\"shiny\":{\"order\":{\"sortcreate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\",\"sortupdate\":\"function(event, ui){\\n      return $(event.target).children().map(function(i, e){\\n        return $(e).attr(\\\"data-value\\\");\\n      }).get();\\n    }\"}}},\"debug\":false,\"_js_idx\":{\"ui\":false,\"type\":false,\"func\":false,\"operation\":false,\"options\":{\"connectWith\":false,\"remove\":true,\"shiny\":{\"order\":{\"sortcreate\":true,\"sortupdate\":true}}},\"debug\":false}});\n      $(\".jqui_self_cleaning_script\").remove();}, 10);});<\/script>\n      <\/div>\n    <\/div>\n    <button class=\"btn btn-default action-button btn-primary\" id=\"st_Question-submit\" type=\"button\">Submit Answers<\/button>\n    <span class=\"sf_submit_msg shinyjs-hide\" id=\"st_Question-submit_msg\">Submitting...<\/span>\n    <div class=\"sf_error shinyjs-hide\" id=\"st_Question-error\">\n      <div>\n        <b>\n          <i class=\"fa fa-exclamation-circle\"><\/i>\n          Error: \n        <\/b>\n        <span id=\"st_Question-error_msg\"><\/span>\n      <\/div>\n    <\/div>\n  <\/div>\n  <div class=\"thankyou_msg shinyjs-hide\" id=\"st_Question-thankyou_msg\">\n    <strong>Thank you, your response was submitted successfully.<\/strong>\n    <br/>\n  <\/div>\n  <a class=\"action-button showhide shinyjs-hide\" href=\"#\" id=\"st_Question-showhide\">Show responses<\/a>\n  <div class=\"answers shinyjs-hide\" id=\"st_Question-answers\">\n    <div class=\"pw-box\" id=\"st_Question-pw-box\">\n      <div class=\"form-group shiny-input-container\" style=\"display: inline-block;\">\n        <label class=\"control-label shiny-label-null\" for=\"st_Question-adminpw\"><\/label>\n        <input id=\"st_Question-adminpw\" type=\"password\" class=\"form-control\" value=\"\" placeholder=\"Password\"/>\n      <\/div>\n      <button id=\"st_Question-submitPw\" type=\"button\" class=\"btn btn-default action-button\">Log in<\/button>\n    <\/div>\n    <div id=\"st_Question-showAnswers\" class=\"shinyjs-hide\">\n      <a id=\"st_Question-downloadBtn\" class=\"btn btn-default shiny-download-link \" href=\"\" target=\"_blank\" download>\n        <i class=\"fa fa-download\"><\/i>\n        Download responses\n      <\/a>\n      <div id=\"st_Question-responsesTable\" style=\"width:100%; height:auto; \" class=\"datatables html-widget html-widget-output\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "jqueryui",
+          "version": "1.12.1",
+          "src": {
+            "href": "jqueryui-1.12.1"
+          },
+          "meta": null,
+          "script": "jquery-ui.min.js",
+          "stylesheet": "jquery-ui.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "shinyjqui-assets",
+          "version": "0.3.2",
+          "src": {
+            "href": "shinyjqui-assets-0.3.2"
+          },
+          "meta": null,
+          "script": "shinyjqui.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "font-awesome",
+          "version": "5.13.0",
+          "src": {
+            "href": "font-awesome-5.13.0"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": [
+            "css/all.min.css",
+            "css/v4-shims.min.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "htmlwidgets",
+          "version": "1.5.2",
+          "src": {
+            "href": "htmlwidgets-1.5.2"
+          },
+          "meta": null,
+          "script": "htmlwidgets.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "jquery",
+          "version": "1.12.4",
+          "src": {
+            "href": "jquery-1.12.4"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-css",
+          "version": "0.0.0",
+          "src": {
+            "href": "datatables-css-0.0.0"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "datatables-crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-binding",
+          "version": "0.16",
+          "src": {
+            "href": "datatables-binding-0.16"
+          },
+          "meta": null,
+          "script": "datatables.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "outecf99498d511fc72": {
+      "html": "<div class=\"shinyforms-ui\">\n  <!--SHINY.SINGLETON[c43e97d24bbfe816ff586588b948aad02137388d]-->\n  <head>\n    <script>Shiny.addCustomMessageHandler('shinyjs-show', function(params) { shinyjs.debugMessage('shinyjs: calling function \"show\" with parameters:'); shinyjs.debugMessage(params); shinyjs.show(params);});\nShiny.addCustomMessageHandler('shinyjs-hide', function(params) { shinyjs.debugMessage('shinyjs: calling function \"hide\" with parameters:'); shinyjs.debugMessage(params); shinyjs.hide(params);});\nShiny.addCustomMessageHandler('shinyjs-toggle', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggle\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggle(params);});\nShiny.addCustomMessageHandler('shinyjs-enable', function(params) { shinyjs.debugMessage('shinyjs: calling function \"enable\" with parameters:'); shinyjs.debugMessage(params); shinyjs.enable(params);});\nShiny.addCustomMessageHandler('shinyjs-disable', function(params) { shinyjs.debugMessage('shinyjs: calling function \"disable\" with parameters:'); shinyjs.debugMessage(params); shinyjs.disable(params);});\nShiny.addCustomMessageHandler('shinyjs-toggleState', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggleState\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleState(params);});\nShiny.addCustomMessageHandler('shinyjs-addClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"addClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.addClass(params);});\nShiny.addCustomMessageHandler('shinyjs-removeClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"removeClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.removeClass(params);});\nShiny.addCustomMessageHandler('shinyjs-toggleClass', function(params) { shinyjs.debugMessage('shinyjs: calling function \"toggleClass\" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleClass(params);});\nShiny.addCustomMessageHandler('shinyjs-html', function(params) { shinyjs.debugMessage('shinyjs: calling function \"html\" with parameters:'); shinyjs.debugMessage(params); shinyjs.html(params);});\nShiny.addCustomMessageHandler('shinyjs-onevent', function(params) { shinyjs.debugMessage('shinyjs: calling function \"onevent\" with parameters:'); shinyjs.debugMessage(params); shinyjs.onevent(params);});\nShiny.addCustomMessageHandler('shinyjs-alert', function(params) { shinyjs.debugMessage('shinyjs: calling function \"alert\" with parameters:'); shinyjs.debugMessage(params); shinyjs.alert(params);});\nShiny.addCustomMessageHandler('shinyjs-logjs', function(params) { shinyjs.debugMessage('shinyjs: calling function \"logjs\" with parameters:'); shinyjs.debugMessage(params); shinyjs.logjs(params);});\nShiny.addCustomMessageHandler('shinyjs-runjs', function(params) { shinyjs.debugMessage('shinyjs: calling function \"runjs\" with parameters:'); shinyjs.debugMessage(params); shinyjs.runjs(params);});\nShiny.addCustomMessageHandler('shinyjs-reset', function(params) { shinyjs.debugMessage('shinyjs: calling function \"reset\" with parameters:'); shinyjs.debugMessage(params); shinyjs.reset(params);});\nShiny.addCustomMessageHandler('shinyjs-delay', function(params) { shinyjs.debugMessage('shinyjs: calling function \"delay\" with parameters:'); shinyjs.debugMessage(params); shinyjs.delay(params);});\nShiny.addCustomMessageHandler('shinyjs-click', function(params) { shinyjs.debugMessage('shinyjs: calling function \"click\" with parameters:'); shinyjs.debugMessage(params); shinyjs.click(params);});\nShiny.addCustomMessageHandler('shinyjs-refresh', function(params) { shinyjs.debugMessage('shinyjs: calling function \"refresh\" with parameters:'); shinyjs.debugMessage(params); shinyjs.refresh(params);});<\/script>\n    <script src=\"shinyjs/shinyjs-default-funcs.js\"><\/script>\n    <script>shinyjs.debug = false;<\/script>\n    <head>\n      <style>.shinyjs-hide { display: none !important; }<\/style>\n    <\/head>\n  <\/head>\n  <!--/SHINY.SINGLETON[c43e97d24bbfe816ff586588b948aad02137388d]-->\n  <head>\n    <style>\n.shinyforms-ui .mandatory_star { color: #db4437; font-size: 20px; line-height: 0; }\n.shinyforms-ui .sf-questions { margin-bottom: 30px; }\n.shinyforms-ui .sf-question { margin-top: 25px; font-size: 16px; }\n.shinyforms-ui .question-hint { font-size: 14px; color: #737373; font-weight: normal; }\n.shinyforms-ui .action-button.btn { font-size: 16px; margin-right: 10px; }\n.shinyforms-ui .thankyou_msg { margin-top: 10px; }\n.shinyforms-ui .showhide { margin-top: 10px; display: inline-block; }\n.shinyforms-ui .sf_submit_msg { font-weight: bold; }\n.shinyforms-ui .sf_error { margin-top: 15px; color: red; }\n.shinyforms-ui .answers { margin-top: 25px; }\n.shinyforms-ui .pw-box { margin-top: -20px; }\n.shinyforms-ui .created-by { font-size: 12px; font-style: italic; color: #777; margin: 25px auto 10px;}\n<\/style>\n  <\/head>\n  <div id=\"nd_Question-form\">\n    <div class=\"sf-questions\">\n      <div class=\"sf-question\">\n        <label for=\"nd_Question-ndnd1\" class=\"sf-input-label\">\n          \n          <div class=\"question-hint\">Mark the features<\/div>\n        <\/label>\n        <div id=\"nd_Question-ndnd1\" class=\"form-group shiny-input-checkboxgroup shiny-input-container shiny-input-container-inline\">\n          <label class=\"control-label\" for=\"nd_Question-ndnd1\"><\/label>\n          <div class=\"shiny-options-group\">\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"brand\"/>\n              <span>brand<\/span>\n            <\/label>\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"back_camera_mpix\"/>\n              <span>back_camera_mpix<\/span>\n            <\/label>\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"front_camera_mpix\"/>\n              <span>front_camera_mpix<\/span>\n            <\/label>\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"battery_mAh\"/>\n              <span>battery_mAh<\/span>\n            <\/label>\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"flash_gb\"/>\n              <span>flash_gb<\/span>\n            <\/label>\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"diag\"/>\n              <span>diag<\/span>\n            <\/label>\n            <label class=\"checkbox-inline\">\n              <input type=\"checkbox\" name=\"nd_Question-ndnd1\" value=\"resolution_Mpx\"/>\n              <span>resolution_Mpx<\/span>\n            <\/label>\n          <\/div>\n        <\/div>\n      <\/div>\n    <\/div>\n    <button class=\"btn btn-default action-button btn-primary\" id=\"nd_Question-submit\" type=\"button\">Submit Answers<\/button>\n    <span class=\"sf_submit_msg shinyjs-hide\" id=\"nd_Question-submit_msg\">Submitting...<\/span>\n    <div class=\"sf_error shinyjs-hide\" id=\"nd_Question-error\">\n      <div>\n        <b>\n          <i class=\"fa fa-exclamation-circle\"><\/i>\n          Error: \n        <\/b>\n        <span id=\"nd_Question-error_msg\"><\/span>\n      <\/div>\n    <\/div>\n  <\/div>\n  <div class=\"thankyou_msg shinyjs-hide\" id=\"nd_Question-thankyou_msg\">\n    <strong>Thank you, your response was submitted successfully.<\/strong>\n    <br/>\n  <\/div>\n  <a class=\"action-button showhide shinyjs-hide\" href=\"#\" id=\"nd_Question-showhide\">Show responses<\/a>\n  <div class=\"answers shinyjs-hide\" id=\"nd_Question-answers\">\n    <div class=\"pw-box\" id=\"nd_Question-pw-box\">\n      <div class=\"form-group shiny-input-container\" style=\"display: inline-block;\">\n        <label class=\"control-label shiny-label-null\" for=\"nd_Question-adminpw\"><\/label>\n        <input id=\"nd_Question-adminpw\" type=\"password\" class=\"form-control\" value=\"\" placeholder=\"Password\"/>\n      <\/div>\n      <button id=\"nd_Question-submitPw\" type=\"button\" class=\"btn btn-default action-button\">Log in<\/button>\n    <\/div>\n    <div id=\"nd_Question-showAnswers\" class=\"shinyjs-hide\">\n      <a id=\"nd_Question-downloadBtn\" class=\"btn btn-default shiny-download-link \" href=\"\" target=\"_blank\" download>\n        <i class=\"fa fa-download\"><\/i>\n        Download responses\n      <\/a>\n      <div id=\"nd_Question-responsesTable\" style=\"width:100%; height:auto; \" class=\"datatables html-widget html-widget-output\"><\/div>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "font-awesome",
+          "version": "5.13.0",
+          "src": {
+            "href": "font-awesome-5.13.0"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": [
+            "css/all.min.css",
+            "css/v4-shims.min.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "htmlwidgets",
+          "version": "1.5.2",
+          "src": {
+            "href": "htmlwidgets-1.5.2"
+          },
+          "meta": null,
+          "script": "htmlwidgets.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "jquery",
+          "version": "1.12.4",
+          "src": {
+            "href": "jquery-1.12.4"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-css",
+          "version": "0.0.0",
+          "src": {
+            "href": "datatables-css-0.0.0"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "datatables-crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-binding",
+          "version": "0.16",
+          "src": {
+            "href": "datatables-binding-0.16"
+          },
+          "meta": null,
+          "script": "datatables.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
