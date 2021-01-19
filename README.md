@@ -1,4 +1,4 @@
-# Struktura
+# Structure
 
 Structure of the repo
 
