@@ -23,3 +23,12 @@ res <- lapply(c(1, 5, 10, 20, 30, 50, 100), function(x){
   })
   list(mean = mean(res), sd(res))
 })
+
+
+rbind(names(fi_score), lapply(fi_score, function(x) {
+  round(x$mean, 6)
+}), lapply(fi_score, function(x) {
+  round(x$sd, 6)
+}))[-1,] -> fi_table
+
+xtable::xtable(fi_table, digits = 6)

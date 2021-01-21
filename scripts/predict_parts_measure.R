@@ -129,8 +129,74 @@ pps_lime <- sapply(ids, function(x) {
     lime_measure(bd, rd_question_data, NULL, x, M = mean(phones$price))
 })
 
-# data.frame(ID = ids, PPS = pps, PPSv = ppsv_imputed, Price = data$price[ids]) -> ibd_table
-# ibd_table <- round(ibd_table, 4)
-# ibd_table$PPSv[is.na(ibd_table$PPSv)] <- "-"
-# ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
-# xtable::xtable(ibd_table)
+
+#BD
+
+ppsv_imputed <- rep("-", times = length(ibd_pps))
+names(ppsv_imputed) <- names(ibd_pps)
+ppsv_imputed[names(ibd_ppsv)] <- round(ibd_ppsv, 4)
+ibd_table <- data.frame(id = names(ibd_pps), PPS = ibd_pps, PPSv = ppsv_imputed, Price = as.integer(round(phones$price[as.numeric(names(ibd_pps))])))
+ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
+ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
+ibd_table
+xtable::xtable(ibd_table, digits = 4)
+
+library(ggplot2)
+
+plot_data_pps <- data.frame(Measure = ibd_pps, Price = phones$price[as.numeric(names(ibd_pps))], `Measure type` = "PPS")
+plot_data_ppsv <- data.frame(Measure = ibd_ppsv, Price = phones$price[as.numeric(names(ibd_ppsv))], `Measure type` = "PPSv")
+plot_data <- rbind(plot_data_pps, plot_data_ppsv)
+
+ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth() +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+
+#shap
+
+ppsv_imputed <- rep("-", times = length(shap_pps))
+names(ppsv_imputed) <- names(shap_pps)
+ppsv_imputed[names(shap_ppsv)] <- round(shap_ppsv, 4)
+ibd_table <- data.frame(id = names(shap_pps), PPS = shap_pps, PPSv = ppsv_imputed, Price = as.integer(round(phones$price[as.numeric(names(shap_pps))])))
+ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
+ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
+ibd_table
+xtable::xtable(ibd_table, digits = 4)
+
+library(ggplot2)
+
+plot_data_pps <- data.frame(Measure = shap_pps, Price = phones$price[as.numeric(names(shap_pps))], `Measure type` = "PPS")
+plot_data_ppsv <- data.frame(Measure = shap_ppsv, Price = phones$price[as.numeric(names(shap_ppsv))], `Measure type` = "PPSv")
+plot_data <- rbind(plot_data_pps, plot_data_ppsv)
+
+ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth() +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+
+#lime
+
+
+ibd_table <- data.frame(id = names(lime_pps), PPS = lime_pps, Price = as.integer(round(phones$price[as.numeric(names(lime_pps))])))
+ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
+ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
+ibd_table
+xtable::xtable(ibd_table, digits = 4)
+
+library(ggplot2)
+
+plot_data <- data.frame(Measure = lime_pps, Price = phones$price[as.numeric(names(lime_pps))], `Measure type` = "PPS")
+
+ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth() +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+
+
+
