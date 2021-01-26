@@ -1,78 +1,90 @@
-rd_question_data <- readRDS("result_question_3.rds")
-nd_question_data <- readRDS("result_question_2.rds")
+rd_question_data <- readRDS("../data/annotations/result_question_3.rds")
+nd_question_data <- readRDS("../data/annotations/result_question_2.rds")
+source("model.R")
 
 bd_measure <- function(bd, expl, expl_fi = NULL, id, M) {
  expl <- expl[expl$id == id,]
- expl <- round(sapply(expl, mean))[-9]
- bd <- bd[bd$variable != "intercept" & bd$variable != "prediction",]
-
- discretize <- c(-Inf, -M/2, -M/10, M/10, M/2, Inf)
- bins <- cut(bd$contribution, breaks = discretize, labels = c(-2, -1, 0, 1, 2))
- bins <- as.numeric(as.character(bins))
- names(bins) <- bd$variable_name
-
- expl <- as.numeric(expl[bd$variable_name])
- norm_score <- norm(bins - expl, type = "2")
-
- if (is.null(expl_fi)) {
-   return(norm_score)
- }
-
- expl_fi <- unlist(expl_fi[expl_fi$id == id,-9][1,])
- bd_fi <- seq_along(bd$variable_name)
- names(bd_fi) <- bd$variable_name
- fi_score <- norm(expl_fi/7 - bd_fi[names(expl_fi)]/7, type = "2")
-
- norm_score*fi_score
-
+ res <- apply(expl, MARGIN = 1, function(expl) {
+     expl <- expl[-9]
+     bd <- bd[bd$variable != "intercept" & bd$variable != "prediction",]
+     
+     discretize <- c(-Inf, -M/3, -M/9, M/9, M/3, Inf)
+     bins <- cut(bd$contribution, breaks = discretize, labels = c(-2, -1, 0, 1, 2))
+     bins <- as.numeric(as.character(bins))
+     names(bins) <- bd$variable_name
+     
+     expl <- as.numeric(expl[bd$variable_name])
+     norm_score <- norm(bins - expl, type = "2")
+     
+     if (is.null(expl_fi)) {
+         return(norm_score)
+     }
+     
+     expl_fi <- unlist(expl_fi[expl_fi$id == id,-9][1,])
+     bd_fi <- seq_along(bd$variable_name)
+     names(bd_fi) <- bd$variable_name
+     fi_score <- norm(expl_fi/8 - bd_fi[names(expl_fi)]/8, type = "2")
+     
+     norm_score*fi_score
+ })
+ mean(res)
 }
 
 shap_measure <- function(bd, expl, expl_fi = NULL, id, M) {
 
     expl <- expl[expl$id == id,]
-    expl <- round(sapply(expl, mean))[-9]
-
-    bd <- bd[bd$B == 0,]
-    discretize <- c(-Inf, -M/2, -M/10, M/10, M/2, Inf)
-    bins <- cut(bd$contribution, breaks = discretize, labels = c(-2, -1, 0, 1, 2))
-    bins <- as.numeric(as.character(bins))
-    names(bins) <- bd$variable_name
-
-    expl <- as.numeric(expl[bd$variable_name])
-    norm_score <- norm(bins - expl, type = "2")
-
-    if (is.null(expl_fi)) {
-        return(norm_score)
-    }
-
-    expl_fi <- unlist(expl_fi[expl_fi$id == id,-9][1,])
-    bd_fi <- seq_along(bd$variable_name[order(bd$contribution, decreasing = TRUE)])
-    names(bd_fi) <- bd$variable_name[order(bd$contribution, decreasing = TRUE)]
-    fi_score <- norm(expl_fi/7 - bd_fi[names(expl_fi)]/7, type = "2")
-
-    norm_score*fi_score
+    res <- apply(expl, MARGIN = 1, function(expl) {
+        expl <- expl[-9]
+        
+        bd <- bd[bd$B == 0,]
+        discretize <- c(-Inf, -M/3, -M/9, M/9, M/3, Inf)
+        bins <- cut(bd$contribution, breaks = discretize, labels = c(-2, -1, 0, 1, 2))
+        bins <- as.numeric(as.character(bins))
+        names(bins) <- bd$variable_name
+        
+        expl <- as.numeric(expl[bd$variable_name])
+        norm_score <- norm(bins - expl, type = "2")
+        
+        if (is.null(expl_fi)) {
+            return(norm_score)
+        }
+        
+        expl_fi <- unlist(expl_fi[expl_fi$id == id,-9][1,])
+        bd_fi <- seq_along(bd$variable_name[order(bd$contribution, decreasing = TRUE)])
+        names(bd_fi) <- bd$variable_name[order(bd$contribution, decreasing = TRUE)]
+        fi_score <- norm(expl_fi/8 - bd_fi[names(expl_fi)]/8, type = "2")
+        
+        norm_score*fi_score
+        
+    })
+    mean(res)
 
 }
 
 lime_measure <- function(lime, expl, expl_fi = NULL, id, M) {
     expl <- expl[expl$id == id,]
-    expl <- round(sapply(expl, mean))[-9]
     
-    lime <- lime[lime$original_variable != "",]
-    zero_variables <- setdiff(names(expl), lime$original_variable)
-    discretize <- c(-Inf, -M/2, -M/10, M/10, M/2, Inf)
-    contribtions <- c(
-        structure(lime$estimated,
-                  names = lime$original_variable),
-        structure(rep(0, times = length(zero_variables)),
-                  names = zero_variables)
-    )
-    bins <- cut(contribtions, breaks = discretize, labels = c(-2, -1, 0, 1, 2))
-    bins <- as.numeric(as.character(bins))
-    names(bins) <- names(contribtions)
+    res <- apply(expl, MARGIN = 1, function(expl) {
+        expl <- expl[-9]
+        lime <- lime[lime$original_variable != "",]
+        zero_variables <- setdiff(names(expl), lime$original_variable)
+        discretize <- c(-Inf, -M/3, -M/9, M/9, M/3, Inf)
+        contribtions <- c(
+            structure(lime$estimated,
+                      names = lime$original_variable),
+            structure(rep(0, times = length(zero_variables)),
+                      names = zero_variables)
+        )
+        bins <- cut(contribtions, breaks = discretize, labels = c(-2, -1, 0, 1, 2))
+        bins <- as.numeric(as.character(bins))
+        names(bins) <- names(contribtions)
+        
+        expl <- as.numeric(expl[names(bins)])
+        norm(bins - expl, type = "2")
+    })
     
-    expl <- as.numeric(expl[names(bins)])
-    norm(bins - expl, type = "2")
+    mean(res)
+
 }
 
 ids_compound <- intersect(unique(rd_question_data$id), unique(nd_question_data$id))
@@ -88,9 +100,9 @@ pps_ibd <- sapply(ids, function(x) {
     bd <- predict_parts(explainer, phones[x,], type = "break_down")
     bd_measure(bd, rd_question_data, NULL, x, M = mean(phones$price))
 })
-names(pps) <- ids
+names(pps_ibd) <- ids
 
-ppsv_shap <- lapply(c(10, 20, 30), function(z) {
+ppsv_shap <- lapply(c(10, 20, 30, 40), function(z) {
     sapply(ids_compound, function(x) {
         ibds <- sapply(1:10, function(y) {
             print(paste(z, y))
@@ -101,7 +113,7 @@ ppsv_shap <- lapply(c(10, 20, 30), function(z) {
     })
 })
 
-pps_shap <- lapply(c(10, 20, 30), function(z) {
+pps_shap <- lapply(c(10, 20, 30, 40), function(z) {
     sapply(ids, function(x) {
         ibds <- sapply(1:10, function(y) {
             print(paste(z, y))
@@ -117,8 +129,74 @@ pps_lime <- sapply(ids, function(x) {
     lime_measure(bd, rd_question_data, NULL, x, M = mean(phones$price))
 })
 
-# data.frame(ID = ids, PPS = pps, PPSv = ppsv_imputed, Price = data$price[ids]) -> ibd_table
-# ibd_table <- round(ibd_table, 4)
-# ibd_table$PPSv[is.na(ibd_table$PPSv)] <- "-"
-# ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
-# xtable::xtable(ibd_table)
+
+#BD
+
+ppsv_imputed <- rep("-", times = length(ibd_pps))
+names(ppsv_imputed) <- names(ibd_pps)
+ppsv_imputed[names(ibd_ppsv)] <- round(ibd_ppsv, 4)
+ibd_table <- data.frame(id = names(ibd_pps), PPS = ibd_pps, PPSv = ppsv_imputed, Price = as.integer(round(phones$price[as.numeric(names(ibd_pps))])))
+ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
+ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
+ibd_table
+xtable::xtable(ibd_table, digits = 4)
+
+library(ggplot2)
+
+plot_data_pps <- data.frame(Measure = ibd_pps, Price = phones$price[as.numeric(names(ibd_pps))], `Measure type` = "PPS")
+plot_data_ppsv <- data.frame(Measure = ibd_ppsv, Price = phones$price[as.numeric(names(ibd_ppsv))], `Measure type` = "PPSv")
+plot_data <- rbind(plot_data_pps, plot_data_ppsv)
+
+ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth() +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+
+#shap
+
+ppsv_imputed <- rep("-", times = length(shap_pps))
+names(ppsv_imputed) <- names(shap_pps)
+ppsv_imputed[names(shap_ppsv)] <- round(shap_ppsv, 4)
+ibd_table <- data.frame(id = names(shap_pps), PPS = shap_pps, PPSv = ppsv_imputed, Price = as.integer(round(phones$price[as.numeric(names(shap_pps))])))
+ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
+ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
+ibd_table
+xtable::xtable(ibd_table, digits = 4)
+
+library(ggplot2)
+
+plot_data_pps <- data.frame(Measure = shap_pps, Price = phones$price[as.numeric(names(shap_pps))], `Measure type` = "PPS")
+plot_data_ppsv <- data.frame(Measure = shap_ppsv, Price = phones$price[as.numeric(names(shap_ppsv))], `Measure type` = "PPSv")
+plot_data <- rbind(plot_data_pps, plot_data_ppsv)
+
+ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth() +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+
+#lime
+
+
+ibd_table <- data.frame(id = names(lime_pps), PPS = lime_pps, Price = as.integer(round(phones$price[as.numeric(names(lime_pps))])))
+ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
+ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
+ibd_table
+xtable::xtable(ibd_table, digits = 4)
+
+library(ggplot2)
+
+plot_data <- data.frame(Measure = lime_pps, Price = phones$price[as.numeric(names(lime_pps))], `Measure type` = "PPS")
+
+ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth() +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    theme_bw() +
+    theme(legend.position = "bottom") 
+
+
+

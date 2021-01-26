@@ -1,4 +1,4 @@
-phones <- read.csv("phones.csv", stringsAsFactors = TRUE)
+phones <- read.csv("../data/phones/phones.csv", stringsAsFactors = TRUE)
 phones$resolution_Mpx <- phones$height_px*phones$width_px/1000000
 phones <- phones[,-c(9, 10)]
 

@@ -1,4 +1,4 @@
-st_question_data <- readRDS("result_question_1.rds")
+st_question_data <- readRDS("../data/annotations/result_question_1.rds")
 source("model.R")
 
 fi_measure <- function(fi, expl) {
@@ -10,16 +10,25 @@ fi_measure <- function(fi, expl) {
 
   expl <- expl[order(expl$feature),]
 
-  dist(rbind(fi$dropout_loss, expl$freq_scaled))/sqrt(7)
+  dist(rbind(fi$dropout_loss, expl$freq_scaled))/sqrt(8)
 
 }
 
-fi_measure(fi, expl)
 
-sapply(c(1, 5, 10, 20, 30, 50, 100), function(x){
+res <- lapply(c(1, 5, 10, 20, 30, 50, 100), function(x){
+  print(x)
   res <- sapply(1:20, function(y) {
     fi <- feature_importance(explainer, N = NULL, B = x)
     fi_measure(fi, st_question_data)
   })
   list(mean = mean(res), sd(res))
 })
+
+
+rbind(names(fi_score), lapply(fi_score, function(x) {
+  round(x$mean, 6)
+}), lapply(fi_score, function(x) {
+  round(x$sd, 6)
+}))[-1,] -> fi_table
+
+xtable::xtable(fi_table, digits = 6)
