@@ -14,7 +14,7 @@ gs4_auth(
 
 # read data directly from google sheets
 df1 <- read_sheet(
-  "https://docs.google.com/spreadsheets/d/17z5PCEqibD-wJ_B3ZDG_o6NpfeXl6YTdxd-AJU4fEcs/edit#gid=1049670593", 
+  "https://docs.google.com/spreadsheets/d/1qAykeCMSr4gbopXvPJqUrm2VhtgVyWnQmgnQOLL9dYo/edit#gid=0", 
    sheet = 'q1',
    col_names = c('answer','timestamp','market_knowledge','ml_knowledge','phone_purchase','ids','nick')
 )
@@ -40,7 +40,7 @@ saveRDS(result1, '../data/annotations/result_question_1.rds')
 # QUESTION 2 ----
 # read data directly from google sheets
 df2 <- read_sheet(
-  "https://docs.google.com/spreadsheets/d/17z5PCEqibD-wJ_B3ZDG_o6NpfeXl6YTdxd-AJU4fEcs/edit#gid=1049670593", 
+  "https://docs.google.com/spreadsheets/d/1qAykeCMSr4gbopXvPJqUrm2VhtgVyWnQmgnQOLL9dYo/edit#gid=0", 
   sheet = 'q2',
   col_names = F
 )
@@ -87,7 +87,7 @@ saveRDS(result2_proc, '../data/annotations/result_question_2.rds')
 
 # read data directly from google sheets
 df3 <- read_sheet(
-  "https://docs.google.com/spreadsheets/d/17z5PCEqibD-wJ_B3ZDG_o6NpfeXl6YTdxd-AJU4fEcs/edit#gid=1049670593", 
+  "https://docs.google.com/spreadsheets/d/1qAykeCMSr4gbopXvPJqUrm2VhtgVyWnQmgnQOLL9dYo/edit#gid=0", 
   sheet = 'q3',
   col_names = F
 )
