@@ -147,12 +147,16 @@ plot_data_pps <- data.frame(Measure = ibd_pps, Price = phones$price[as.numeric(n
 plot_data_ppsv <- data.frame(Measure = ibd_ppsv, Price = phones$price[as.numeric(names(ibd_ppsv))], `Measure type` = "PPSv")
 plot_data <- rbind(plot_data_pps, plot_data_ppsv)
 
-ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+ibd_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
     geom_point() +
-    geom_smooth() +
-    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    geom_smooth(alpha = 0.25) +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value", title = "Break Down") +
+    scale_x_continuous(expand = c(0.01, 0)) +
     theme_bw() +
-    theme(legend.position = "bottom") 
+    theme(legend.position = "bottom") +
+    theme_drwhy()
+
+ggsave("../plots/ibd_plot.png", plot = ibd_plot, height = 5, width = 7)
 
 #shap
 
@@ -166,17 +170,22 @@ ibd_table
 xtable::xtable(ibd_table, digits = 4)
 
 library(ggplot2)
-
+shap_pps <- shap_pps[[4]]
+shap_ppsv <- shap_ppsv[[4]]
 plot_data_pps <- data.frame(Measure = shap_pps, Price = phones$price[as.numeric(names(shap_pps))], `Measure type` = "PPS")
 plot_data_ppsv <- data.frame(Measure = shap_ppsv, Price = phones$price[as.numeric(names(shap_ppsv))], `Measure type` = "PPSv")
 plot_data <- rbind(plot_data_pps, plot_data_ppsv)
 
-ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+shap_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
     geom_point() +
-    geom_smooth() +
-    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    geom_smooth(alpha = 0.25) +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value", title = "SHAP") +
+    scale_x_continuous(expand = c(0.01, 0)) +
     theme_bw() +
-    theme(legend.position = "bottom") 
+    theme(legend.position = "bottom") +
+    theme_drwhy()
+
+ggsave("../plots/shap_plot.png", plot = shap_plot, height = 5, width = 7)
 
 #lime
 
@@ -187,16 +196,47 @@ ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L))
 ibd_table
 xtable::xtable(ibd_table, digits = 4)
 
+
+
+# Arrange
+
+
+gridExtra::grid.arrange(ibd_plot, shap_plot, lime_plot, nrow = 2)
+
+ggsave(plot = gridExtra::grid.arrange(ibd_plot, shap_plot, lime_plot, nrow = 2), filename = "pp.png", height = 12, width = 12)
+
+#Comparison
+
+
 library(ggplot2)
 
 plot_data <- data.frame(Measure = lime_pps, Price = phones$price[as.numeric(names(lime_pps))], `Measure type` = "PPS")
 
-ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+lime_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
     geom_point() +
-    geom_smooth() +
-    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    geom_smooth(alpha = 0.25) +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value", title = "LIME") +
+    scale_x_continuous(expand = c(0.01, 0)) +
     theme_bw() +
-    theme(legend.position = "bottom") 
+    theme(legend.position = "bottom") +
+    theme_drwhy()
+
+ggsave("../plots/lime_plot.png", plot = lime_plot, height = 5, width = 7)
 
 
+plot_data <- rbind(
+    data.frame(Measure = ibd_pps, Price = phones$price[as.numeric(names(ibd_pps))], `Measure type` = "Break Down"),
+    data.frame(Measure = shap_pps, Price = phones$price[as.numeric(names(shap_pps))], `Measure type` = "SHAP"),
+    data.frame(Measure = lime_pps, Price = phones$price[as.numeric(names(lime_pps))], `Measure type` = "LIME")
+)
 
+comaprison_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
+    geom_point() +
+    geom_smooth(alpha = 0.25) +
+    labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
+    scale_x_continuous(expand = c(0.01, 0)) +
+    theme_bw() +
+    theme(legend.position = "bottom") +
+    theme_drwhy()
+
+ggsave("../plots/comparison.png", plot = comaprison_plot, height = 5, width = 7)

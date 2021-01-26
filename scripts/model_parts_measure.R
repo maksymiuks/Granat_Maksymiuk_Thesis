@@ -10,7 +10,7 @@ fi_measure <- function(fi, expl) {
 
   expl <- expl[order(expl$feature),]
 
-  dist(rbind(fi$dropout_loss, expl$freq_scaled))/sqrt(8)
+  dist(rbind(fi$dropout_loss, expl$freq_scaled))/sqrt(length(fi$dropout_loss))
 
 }
 
