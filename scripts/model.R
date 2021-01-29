@@ -5,20 +5,14 @@ phones <- phones[,-c(9, 10)]
 
 
 library(mlr)
+library(DALEXtra)
 
-set.seed(123)
-
+# gbm
 task <- makeRegrTask("phones", phones[,-c(1)], "price")
 lrn <- makeLearner("regr.gbm", par.vals = list(n.trees = 2672, interaction.depth = 2, n.minobsinnode=5, shrinkage=0.131))
 model <- train(lrn, task)
 
 rdesc <- makeResampleDesc("CV", iters = 5)
-
-
-
-
-library(DALEXtra)
-
 explainer <- explain_mlr(model, phones[,-c(1, 9)], phones$price)
 
 mp <- model_performance(explainer)

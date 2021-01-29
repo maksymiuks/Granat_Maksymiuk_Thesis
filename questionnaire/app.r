@@ -49,34 +49,29 @@ ui <- shiny::htmlTemplate(
     "Your nick",
     width = 500
   ),
-  
-  # useShinyalert(),
-  
-  sample_size = numericInput("sample_size", 
-                            "Number of minutes (approx.)",
-                            value = 5,
-                            min = 5,
-                            max = 200,
-                            width = 125),
-  
-  questions_number = numericInput("questions",
-                                  "Questions number",
-                                  value = 3,
-                                  min = 1,
-                                  max = 3,
-                                  width = 125),
   domain_knowledge = radioButtons("domain",
                                   "Describe your knowledge about phones market",
-                                  choices = c("Professional", "Advanced", "Intermediate", "Novice", "Fundamental"),
+                                  choices = c("Professional", 
+                                              "Advanced", 
+                                              "Intermediate", 
+                                              "Novice", 
+                                              "Fundamental"),
                                   inline = FALSE,
                                   selected = "Intermediate"),
   last_phone = radioButtons("last_phone",
                             "When have you bought your current phone?",
-                            choices = c("More than 2 years ago", "Between 2 years and 1 year ago", "Between 1 years and 6 months ago", "Less than 6 months ago"),
+                            choices = c("More than 2 years ago",
+                                        "Between 2 years and 1 year ago", 
+                                        "Between 1 years and 6 months ago", 
+                                        "Less than 6 months ago"),
                             selected = "Between 1 years and 6 months ago"),
   xai_knowledge = radioButtons("xai",
                                   "Describe your knowledge about Machine Learning",
-                                  choices = c("Professional", "Advanced", "Intermediate", "Novice", "Fundamental"),
+                                  choices = c("Professional", 
+                                              "Advanced", 
+                                              "Intermediate", 
+                                              "Novice", 
+                                              "Fundamental"),
                                inline = FALSE,
                                selected = "Intermediate"),
   
@@ -97,10 +92,9 @@ server <- function(input, output) {
     mutate(resolution_Mpx = round(height_px*width_px/1000000, 2)) %>%
     select(name, brand, back_camera_mpix, front_camera_mpix, battery_mAh, flash_gb, ram_gb, diag, resolution_Mpx, price)
 
-  tooltips <- read.csv('../data/phones/tooltips.csv',header = F)[1,]
+  tooltips <- read.csv('../data/phones/tooltips.csv', header = F)[1,]
   
   m <- reactive({
-    # hardcoded number of telephones
     ret <- sample(1:nrow(data), 8)
     ret[order(data$price[ret], decreasing = TRUE)]
   })
@@ -156,8 +150,6 @@ server <- function(input, output) {
     # of the survey.
     
     observeEvent(input$Click.Counter, {
-      # shinyjs::disable("sample_size")
-      shinyjs::disable("questions")
       shinyjs::disable("domain")
       shinyjs::disable("last_phone")
       shinyjs::disable("xai")
@@ -227,7 +219,6 @@ server <- function(input, output) {
     questions <- lapply(sample_middle, function(x){
       list(id = paste("st", as.character(x), sep = "_"),
            type = "order" ,
-#           title = paste0("Observation: ", as.character(x)),
            hint = HTML(create_html_table(data[x,])),
            choices = sample(colnames(data)[2:(ncol(data)-1)]),
            inline = TRUE)

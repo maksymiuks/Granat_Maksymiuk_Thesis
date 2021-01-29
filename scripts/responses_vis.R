@@ -1,5 +1,5 @@
 # CONFIG ----
-library('readxl')
+library(readxl)
 library(dplyr)
 library(tidyr)
 library(car)
@@ -10,23 +10,7 @@ library(gridExtra)
 library(grid)
 
 
-gs4_auth(
-  cache = ".secrets",
-  email = "bartek.granat@gmail.com"
-)
-
-
-##### script for visualization of form results ----
-
-
-# read data directly from google sheets
-df1 <- read_sheet(
-  "https://docs.google.com/spreadsheets/d/1qAykeCMSr4gbopXvPJqUrm2VhtgVyWnQmgnQOLL9dYo/edit#gid=0", 
-  sheet = 'q1',
-  col_names = c('answer','timestamp','market_knowledge','ml_knowledge','phone_purchase','ids','nick')
-)
-
-df1 <- readRDS('charts/df1.rds')
+df1 <- readRDS('../data/annotations/personal_survey.rds')
 
 df_personal <- df1[c('ml_knowledge','phone_purchase','market_knowledge')] %>% as.data.table()
 

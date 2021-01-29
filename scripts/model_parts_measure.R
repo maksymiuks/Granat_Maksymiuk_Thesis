@@ -25,6 +25,8 @@ res <- lapply(c(1, 5, 10, 20, 30, 50, 100), function(x){
 })
 
 
+# LATEX table
+
 rbind(names(fi_score), lapply(fi_score, function(x) {
   round(x$mean, 6)
 }), lapply(fi_score, function(x) {

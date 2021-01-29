@@ -129,9 +129,13 @@ pps_lime <- sapply(ids, function(x) {
     lime_measure(bd, rd_question_data, NULL, x, M = mean(phones$price))
 })
 
+##################### Plots ########################
 
-#BD
+library(ggplot2)
 
+######### Break Down
+
+# LATEX table
 ppsv_imputed <- rep("-", times = length(ibd_pps))
 names(ppsv_imputed) <- names(ibd_pps)
 ppsv_imputed[names(ibd_ppsv)] <- round(ibd_ppsv, 4)
@@ -141,8 +145,8 @@ ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L))
 ibd_table
 xtable::xtable(ibd_table, digits = 4)
 
-library(ggplot2)
 
+# Plot
 plot_data_pps <- data.frame(Measure = ibd_pps, Price = phones$price[as.numeric(names(ibd_pps))], `Measure type` = "PPS")
 plot_data_ppsv <- data.frame(Measure = ibd_ppsv, Price = phones$price[as.numeric(names(ibd_ppsv))], `Measure type` = "PPSv")
 plot_data <- rbind(plot_data_pps, plot_data_ppsv)
@@ -158,8 +162,9 @@ ibd_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure
 
 ggsave("../plots/ibd_plot.png", plot = ibd_plot, height = 5, width = 7)
 
-#shap
+######### shap
 
+# LATEX table
 ppsv_imputed <- rep("-", times = length(shap_pps))
 names(ppsv_imputed) <- names(shap_pps)
 ppsv_imputed[names(shap_ppsv)] <- round(shap_ppsv, 4)
@@ -169,7 +174,7 @@ ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L))
 ibd_table
 xtable::xtable(ibd_table, digits = 4)
 
-library(ggplot2)
+# Plot
 shap_pps <- shap_pps[[4]]
 shap_ppsv <- shap_ppsv[[4]]
 plot_data_pps <- data.frame(Measure = shap_pps, Price = phones$price[as.numeric(names(shap_pps))], `Measure type` = "PPS")
@@ -187,22 +192,16 @@ shap_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measur
 
 ggsave("../plots/shap_plot.png", plot = shap_plot, height = 5, width = 7)
 
-#lime
+######### lime
 
-
+# LATEX table
 ibd_table <- data.frame(id = names(lime_pps), PPS = lime_pps, Price = as.integer(round(phones$price[as.numeric(names(lime_pps))])))
 ibd_table <- ibd_table[order(ibd_table$Price, decreasing = TRUE),]
 ibd_table <- cbind(ibd_table[1:36,], rbind(ibd_table[37:71,], c(1L, 1L, 1L, 1L)))
 ibd_table
 xtable::xtable(ibd_table, digits = 4)
 
-
-
-#Comparison
-
-
-library(ggplot2)
-
+# Plot
 plot_data <- data.frame(Measure = lime_pps, Price = phones$price[as.numeric(names(lime_pps))], `Measure type` = "PPS")
 
 lime_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
@@ -217,6 +216,8 @@ lime_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measur
 ggsave("../plots/lime_plot.png", plot = lime_plot, height = 5, width = 7)
 
 
+######### comparison plot
+
 plot_data <- rbind(
     data.frame(Measure = ibd_pps, Price = phones$price[as.numeric(names(ibd_pps))], `Measure type` = "Break Down"),
     data.frame(Measure = shap_pps, Price = phones$price[as.numeric(names(shap_pps))], `Measure type` = "SHAP"),
@@ -225,7 +226,7 @@ plot_data <- rbind(
 
 comaprison_plot <- ggplot(data = plot_data, aes(x = Price, y = Measure, color = Measure.type, fill = Measure.type)) +
     geom_point() +
-    geom_smooth(alpha = 0.25, se = FALSE) +
+    geom_smooth(alpha = 0.25, se = TRUE) +
     labs(color = "Measure type", fill = "Measure type", x = "Phone price", y = "Measure value") +
     scale_x_continuous(expand = c(0.01, 0)) +
     theme_bw() +
