@@ -23,3 +23,15 @@ explainer <- explain_mlr(model, phones[,-c(1, 9)], phones$price)
 
 mp <- model_performance(explainer)
 mp$measures$rmse
+
+
+# lm
+phones[is.na(phones)] <- 0
+phones <- createDummyFeatures(phones[,-1])
+task <- makeRegrTask("phones", phones, "price")
+lrn <- makeLearner("regr.lm")
+rdesc <- makeResampleDesc("CV", iters = 5)
+res <- resample(lrn, task, resampling = rdesc, measures = rmse)
+model <- train(lrn, task)
+sqrt(mean((predict(model, newdata = phones)$data$response - phones$price)^2))
+
