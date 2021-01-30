@@ -1,35 +1,9 @@
-==================================================================================================
-
-DESCRIPTION:
-
-GLINT is a modern and stylish digital agency HTML template. Designed for creative designers, agencies
-freelancers, photographer or any creative profession. It is fully responsive and retina/hi-dpi ready
-making it pixel sharp on any devices. It has animating stats section, working contact form, 
-stylish portfolio section and other features you will only find on premium html templates. 
-Built with clean and organized code, this template is very easy to customize.
-
-==================================================================================================
-
-
-USING THE MAILCHIMP FORM:
-
-To use the mailchimp form you need a mailchimp url. To get the mailchimp url, login to 
-your mailchimp account, click the list menu, click the stats download menu and select signup forms. 
-Then choose embedded forms and select naked form. In the generated form code get the value of 
-the form ACTION attribute and use it as your mailchimp url. Open the main.js file located
-in the template's "js" folder and look for this line of code: 
-
-var cfg = {
-    scrollDuration : 800, // smoothscroll duration
-    mailChimpURL   : 'https://facebook.us8.list-manage.com/subscribe/post?u=cdb7b577e41181934ed6a6a44&amp;id=e6957d85dc'   // mailchimp url
-},
-
-Replace the value of mailChimpURL with your mailchimp url.
-
 
 SOURCES AND CREDITS:
 
-I've used the following resources as listed.
+Credits to Vivek Katial for creating https://github.com/vivekkatial/uber_shiny application and sharing it.
+
+Sources used in the application.
 
 Fonts:
  - Montserrat Font (https://www.google.com/fonts/specimen/Montserrat)
@@ -61,7 +35,6 @@ Javascript Files:
  - AjaxChimp (https://github.com/scdoshi/jquery-ajaxchimp)
 
 
--------------------------------------------------------------------------------------------------------
 
 
 

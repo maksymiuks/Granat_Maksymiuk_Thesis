@@ -13,6 +13,7 @@ gs4_auth(
   email = "inzynierkaszymonbartek@gmail.com"
 )
 
+# functions used internally to render obesrvations above questions
 create_html_table <- function(data_row){
   data_row <- as.matrix(data_row)
   rownames(data_row) <- NULL
@@ -38,17 +39,18 @@ create_html_table <- function(data_row){
   )
 }
 
-
+# defining objects to use in html template
 ui <- shiny::htmlTemplate(
   # Index Page
   "www/index.html",
  
-  
-  email_address = textInput(
-    "email_address",
+  # define nick input
+  nick = textInput(
+    "nick",
     "Your nick",
     width = 500
   ),
+  # define questions for personal form
   domain_knowledge = radioButtons("domain",
                                   "Describe your knowledge about phones market",
                                   choices = c("Professional", 
@@ -75,11 +77,11 @@ ui <- shiny::htmlTemplate(
                                inline = FALSE,
                                selected = "Intermediate"),
   
-  
+  # define interactive data browser
   data_browser = DT::dataTableOutput("Data"),
-  
+  # define dynamic questions section
   questions = uiOutput("MainAction"),
-  
+  # define next question button for navigation
   ccounter = actionButton("Click.Counter", "Next question")
   
 )
@@ -91,21 +93,21 @@ server <- function(input, output) {
   data <- read.csv("../data/phones/phones.csv") %>% 
     mutate(resolution_Mpx = round(height_px*width_px/1000000, 2)) %>%
     select(name, brand, back_camera_mpix, front_camera_mpix, battery_mAh, flash_gb, ram_gb, diag, resolution_Mpx, price)
-
+  # load tooltips for interactive data browser
   tooltips <- read.csv('../data/phones/tooltips.csv', header = F)[1,]
-  
+  # choose indices for random sample
   m <- reactive({
     ret <- sample(1:nrow(data), 8)
     ret[order(data$price[ret], decreasing = TRUE)]
   })
-  
+  # create random sample
   data_sample <- reactive({
     ret <- data[m(),]
     ret <- ret[order(ret$price, decreasing = TRUE),]
     rownames(ret) <- NULL
     ret
   })
-  
+  # render dynamic sample browser
   output$Data <- DT::renderDataTable({
     DT::datatable(data_sample(),  
                   rownames = FALSE,
@@ -121,11 +123,11 @@ server <- function(input, output) {
   })
   
 
-  
+  # define dynamic ui for questions
   output$MainAction <- renderUI( {
     dynamicUi()
   })
-
+  # define popup on first click
   observeEvent(input$Click.Counter, {
     if(input$Click.Counter==1){
       shinyalert("Important information!",
@@ -133,11 +135,11 @@ server <- function(input, output) {
                  type = "info")
     }
   })
-  
+  # close app on click
   observeEvent(input$close, {
     stopApp()
   })
-
+  # render initial questions screen
   dynamicUi <- reactive({
     if (input$Click.Counter==0)
       return(
@@ -146,17 +148,17 @@ server <- function(input, output) {
         )
       )
 
-    # Once the next button has been clicked once we see each question
+    # Once the next button has been clicked we see each question
     # of the survey.
     
     observeEvent(input$Click.Counter, {
       shinyjs::disable("domain")
       shinyjs::disable("last_phone")
       shinyjs::disable("xai")
-      shinyjs::disable("email_address")
+      shinyjs::disable("nick")
     })
     
-    
+    # render first question 
     if (input$Click.Counter==1){
       return(
         list(
@@ -168,7 +170,7 @@ server <- function(input, output) {
       )
 
     }
-
+    # render second question
     if (input$Click.Counter==2){
       return(
         list(
@@ -179,7 +181,7 @@ server <- function(input, output) {
         )
       )
     }
-
+    # render third question
     if (input$Click.Counter==3){
       shinyjs::disable("Click.Counter")
       shinyjs::hide("Click.Counter")
@@ -192,7 +194,7 @@ server <- function(input, output) {
         )
       )
     }
-
+    # render questions end screen
     if (input$Click.Counter==4){
       shinyjs::disable("Click.Counter")
       shinyjs::hide("Click.Counter")
@@ -205,10 +207,10 @@ server <- function(input, output) {
     }
 
   })
-
+  # define second question content
   form_data_st <- reactive({
     validate(need(
-      input$email_address != "",
+      input$nick != "",
       "Nick has to be passed"
     ))
     data <- data_sample() %>% 
@@ -226,13 +228,13 @@ server <- function(input, output) {
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 2,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m()[sample_middle], collapse = "-"),
-                    email_address = input$email_address)
+                    email_address = input$nick)
     list(id = id, questions = questions, storage = storage)
   })
-
+  # define first question content
   form_data_nd <- reactive({
     validate(need(
-      input$email_address != "",
+      input$nick != "",
       "Nick has to be passed"
     ))
     data <- data_sample() %>% mutate_if(is.factor, as.character)
@@ -249,13 +251,13 @@ server <- function(input, output) {
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 1,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m(), collapse = "-"),
-                    email_address = input$email_address)
+                    email_address = input$nick)
     list(id = id, questions = questions, storage = storage)
   })
-
+  # define third question content
   form_data_rd <- reactive({
     validate(need(
-      input$email_address != "",
+      input$nick != "",
       "Nick has to be passed"
     ))
     data <- data_sample() %>% mutate_if(is.factor, as.character)
@@ -288,11 +290,11 @@ server <- function(input, output) {
     storage <- list(type = STORAGE_TYPES$GOOGLE_SHEETS, key = "1xw1R799ylk8Xua7nGiLEZHr8b6qMLXEPSP_m-GgWJmQ", sheet = 3,
                     domain_knowledge = input$domain, xai_knowledge = input$xai,
                     last_phone = input$last_phone, sample = paste0(m()[sample_short], collapse = "-"),
-                    email_address = input$email_address)
+                    email_address = input$nick)
     list(id = id, questions = questions, storage = storage)
   })
 
-
+  # render all questions
   output$rd_question <- renderUI({
     formUI(form_data_rd())
   })

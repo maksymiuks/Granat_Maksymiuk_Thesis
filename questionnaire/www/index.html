@@ -44,8 +44,6 @@
 
 <body id="top">
 
-    <!-- header
-    ================================================== -->
     <header class="s-header">
 
         <nav class="header-nav">
@@ -57,26 +55,21 @@
                 
                 <ul class="header-nav__list">
                     <li class="current"><a class="smoothscroll"  href="#home" title="home">Home</a></li>
-                    <li><a class="smoothscroll"  href="#personal_form" title="personal_form">Introduction</a></li>
-                    <li><a class="smoothscroll"  href="#works" title="works">Questions</a></li>
-                    <!-- <li><a class="smoothscroll"  href="#about" title="about">About</a></li> -->
+                    <li><a class="smoothscroll"  href="#personal_form" title="personal_form">Personal Form</a></li>
+                    <li><a class="smoothscroll"  href="#works" title="questions">Questions</a></li>
                 </ul>
+                
+            </div>
 
-
-            </div> <!-- end header-nav__content -->
-
-        </nav>  <!-- end header-nav -->
+        </nav>
 
         <a class="header-menu-toggle" href="#0">
             <span class="header-menu-text">Menu</span>
             <span class="header-menu-icon"></span>
         </a>
 
-    </header> <!-- end s-header -->
+    </header>
 
-
-    <!-- home
-    ================================================== -->
     <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="images/phone-photo.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
         <div class="overlay"></div>
@@ -110,15 +103,13 @@
 
             <div class="home-content__line"></div>
 
-        </div> <!-- end home-content -->
+        </div>
 
 
-    </section> <!-- end s-home -->
+    </section>
 
 
 
-
-        <!-- map ================================================== -->
     <section id='personal_form' class="s-clients">
       
         <div class="row section-header has-bottom-sep aos-init aos-animate" data-aos="fade-up">
@@ -130,7 +121,7 @@
         
         <div class="aos-init aos-animate" data-aos="fade-up">
           <div class="center-in align-center">
-            {{ email_address }}
+            {{ nick }}
           </div>
         </div>
 
@@ -159,10 +150,7 @@
 
     </section> 
 
-
-
-    <!-- map ================================================== -->
-    <section id='services' class="s-clients">
+    <section id='data_browser' class="s-clients">
       
         <div class="row section-header has-bottom-sep aos-init aos-animate" data-aos="fade-up">
             <div class="col-full">
@@ -172,7 +160,6 @@
             </div>
         </div>
         
-        <!-- end about-desc -->
         <div class="col-eleven align-center">
           {{ data_browser }}
         </div>
@@ -183,9 +170,8 @@
       
 
     </section> 
-    <!-- end s-map -->
     
-    <section id="works" class="s-services">
+    <section id="questions" class="s-services">
       <div class="row section-header aos-init aos-animate" data-aos="fade-up">
             <div class="col-full">
                 <h3 class="subhead">Questions</h3>
@@ -197,9 +183,6 @@
     </section>
 
   
-
-<!-- about
-    ================================================== -->
     <section id='about' class="s-about">
 
         <div class="row section-header has-bottom-sep" data-aos="fade-up">
@@ -212,14 +195,11 @@
                   Template credits: https://github.com/vivekkatial/
                 </h6>
             </div>
-        </div> <!-- end section-header -->
-
-        <!-- end about-desc -->
+        </div> 
 
         <div class="about__line"></div>
 
     </section> 
-    <!-- end s-about -->
 
 
     <!-- preloader
@@ -242,27 +222,6 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 
-    <!--
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-
-    <script type="text/javascript" charset="utf-8">
-        d3.text("data.csv", function(data) {
-            var parsedCSV = d3.csv.parseRows(data);
-
-            var container = d3.select("#inputs")
-                .append("table")
-
-                .selectAll("tr")
-                    .data(parsedCSV).enter()
-                    .append("tr")
-
-                .selectAll("td")
-                    .data(function(d) { return d; }).enter()
-                    .append("td")
-                    .text(function(d) { return d; });
-        });
-    </script>
-    -->
     
 </body>
 
