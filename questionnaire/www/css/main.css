@@ -3668,8 +3668,12 @@ footer .row {
     background-color: #7896CF !important;
 }
 
-#services{
+#data_browser{
     background-color: #b3b5b3 !important;
+}
+
+#nick{
+    width: 100% !important;
 }
 
 /*# sourceMappingURL=main.css.map */
